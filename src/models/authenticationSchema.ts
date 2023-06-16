@@ -11,6 +11,9 @@ const authenticationsSchemas = new Schema({
     otp:{
         type: String,
         default: ""
+    },
+    expire:{
+        type : String
     }
 },{
     timestamps: true

@@ -1,4 +1,4 @@
-import { RequestHandler, json } from 'express'
+import { RequestHandler } from 'express'
 import Jwt from 'jsonwebtoken';
 
 const verifyToken : RequestHandler = async(req, res, next)=>{

@@ -25,6 +25,14 @@ export const vendorSignupDto = Joi.object({
     role: Joi.string().required()
 });
 
+export const adminSignupDto = Joi.object({
+    firstName: Joi.string().max(50).required(),
+    lastName: Joi.string().max(50).required(),
+    email: Joi.string().max(50).required(),
+    password: Joi.string().min(8).required()
+
+})
+
 export  const loginDto = Joi.object({
     userName: Joi.string().max(50).trim(),
     email: Joi.string().max(50),

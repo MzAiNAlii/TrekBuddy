@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { vendorSignupDto } from "../../../util/dtos/auth";
 import bcrypt from 'bcrypt';
-import vendorsSchema from "../../../models/vendorSchema";
+import vendorsSchema from "../../../models/app/vendorSchema";
 
 const vendorSignupController : RequestHandler = async(req, res) =>{
     const validation = vendorSignupDto.validate(req.body)

@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
-import { signupDto } from "../../../util/dtos/auth";
-import usersSchema from "../../../models/userSchema";
+import { adminSignupDto } from "../../util/dtos/auth";
+import usersSchema from "../../models/app/userSchema";
 import bcrypt from 'bcrypt';
 
 const adminSignupController : RequestHandler = async(req, res) =>{
-    const validation = signupDto.validate(req.body)
+    const validation = adminSignupDto.validate(req.body)
 
     if(validation.error){
         return res.status(400).json({

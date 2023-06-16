@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import bcrypt from 'bcrypt';
 import { forgetDto } from "../../../util/dtos/auth";
-import vendorsSchema from "../../../models/vendorSchema";
+import vendorsSchema from "../../../models/app/vendorSchema";
 
 const vendorForgotPassword : RequestHandler =async(req,res)=>{
     const validation = forgetDto.validate(req.body);

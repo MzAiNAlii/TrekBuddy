@@ -1,10 +1,7 @@
 import { RequestHandler } from "express";
-import usersSchema from "../../../models/userSchema";
+import usersSchema from "../../../models/app/userSchema";
 import bcrypt from 'bcrypt';
 import { userSignupDto } from "../../../util/dtos/auth";
-//import sendOtp from "../../../util/otp/otp";
-//import nodemailer from 'nodemailer'
-
 
 const userSignupController : RequestHandler = async(req, res) =>{
     const validation = userSignupDto.validate(req.body)

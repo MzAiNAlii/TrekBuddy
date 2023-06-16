@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import Jwt from 'jsonwebtoken';
-import vendorsSchema from '../../../models/vendorSchema';
-import token from '../../../models/vendorSchema';
+import vendorsSchema from '../../../models/app/vendorSchema';
+import token from '../../../models/app/vendorSchema';
 
 
 const vendorLogoutController : RequestHandler = async(req, res)=>{
@@ -16,7 +16,7 @@ const vendorLogoutController : RequestHandler = async(req, res)=>{
         })
     }
     if (vendor.token! != vendorToken) {
-        return res.status(403).json({
+        return res.status(498).json({
             message: "Invalid Token"
         });
     }

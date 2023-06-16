@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import Jwt from 'jsonwebtoken';
-import usersSchema from '../../../models/userSchema';
-import token from '../../../models/userSchema';
+import usersSchema from '../../../models/app/userSchema';
+import token from '../../../models/app/userSchema';
 
 const userLogoutController : RequestHandler = async(req, res) =>{
     const userToken = req.headers.authorization?.split(" ")[1]
@@ -15,7 +15,7 @@ const userLogoutController : RequestHandler = async(req, res) =>{
         })
     }
     if (user.token! != userToken) {
-        return res.status(403).json({
+        return res.status(498).json({
             message: "Invalid Token"
         });
     }

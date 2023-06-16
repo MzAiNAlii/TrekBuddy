@@ -1,8 +1,8 @@
 import { Router } from "express";
-import vendorSignupController from "../../controllers/auth/vendor/signup";
-import vendorLoginController from "../../controllers/auth/vendor/login";
-import vendorLogoutController from "../../controllers/auth/vendor/logout";
-import vendorForgotPassword from "../../controllers/auth/vendor/forgetPassword";
+import vendorSignupController from "../../../controllers/app/vendor/signup";
+import vendorLoginController from "../../../controllers/app/vendor/login";
+import vendorLogoutController from "../../../controllers/app/vendor/logout";
+import vendorForgotPassword from "../../../controllers/app/vendor/forgetPassword";
 
 const vendorrouter = Router();
 

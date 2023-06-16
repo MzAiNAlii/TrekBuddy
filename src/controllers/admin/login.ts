@@ -1,9 +1,8 @@
 import { RequestHandler } from "express";
-import { loginDto } from "../../../util/dtos/auth";
-import usersSchema from "../../../models/userSchema";
+import { loginDto } from "../../util/dtos/auth";
+import usersSchema from "../../models/app/userSchema";
 //import Jwt  from "jsonwebtoken";
 import bcrypt from 'bcrypt';
-
 
 const adminLoginController : RequestHandler = async(req, res) =>{
     const validation = loginDto.validate(req.body)

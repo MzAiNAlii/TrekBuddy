@@ -2,8 +2,7 @@ import { RequestHandler } from "express";
 import { loginDto } from "../../../util/dtos/auth";
 import Jwt  from "jsonwebtoken";
 import bcrypt from 'bcrypt';
-import usersSchema from "../../../models/userSchema";
-
+import vendorsSchema from "../../../models/app/vendorSchema";
 
 const vendorLoginController : RequestHandler = async(req, res) =>{
     const validation = loginDto.validate(req.body)
@@ -15,24 +14,24 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
         })
     }
     const {userName, email, password} = req.body
-    const  existingUser = await usersSchema.findOne({
+    const  existingVendor = await vendorsSchema.findOne({
       $or:[{userName},{email}]
     })
     
-    if(existingUser!.role !== 'user'){
+    if(existingVendor!.role !== 'vendor'){
       return res.status(400).json({
         message: "Not found"
     }
       )}
       
         
-    if(!existingUser){
+    if(!existingVendor){
         return res.status(403).json({
             message: "Invalid Credentials"
 
         })
     }
-    const matchedPassword = await bcrypt.compare(password,existingUser.password!)
+    const matchedPassword = await bcrypt.compare(password,existingVendor.password!)
 
     if(!matchedPassword){
         return res.status(403).json({
@@ -41,18 +40,18 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
     }
 
     const token = Jwt.sign({
-      id: existingUser._id,
-      userName: existingUser.userName,
-      email: existingUser.email
+      id: existingVendor._id,
+      userName: existingVendor.userName,
+      email: existingVendor.email
     },process.env.SECRET_KEY!,{
-      //expiresIn: '1h',
+      //expiresIn: '1m',
       issuer: `http://localhost:${process.env.PORT!}`,
-      subject: existingUser._id.toString()
+      subject: existingVendor._id.toString()
     })
 
     //console.log("token is ", token)
 
-    const updateToken = await usersSchema.findOneAndUpdate(existingUser._id,{
+    const updateToken = await vendorsSchema.findOneAndUpdate(existingVendor._id,{
         $set:{
             token
         }
@@ -61,7 +60,7 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
     return res.json({
         message: "Login Successfully",
         data:{
-            user: existingUser,
+            user: existingVendor,
             token: token
         }
     })

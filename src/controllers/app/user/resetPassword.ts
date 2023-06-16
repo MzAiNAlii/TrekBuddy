@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { forgetDto } from "../../../util/dtos/auth";
 import bcrypt from 'bcrypt'
-import usersSchema from "../../../models/userSchema";
-import  Jwt  from "jsonwebtoken";
+import usersSchema from "../../../models/app/userSchema";
+import Jwt from "jsonwebtoken";
 
 const resetPassword : RequestHandler =async (req, res) =>{
     const validation = forgetDto.validate(req.body);

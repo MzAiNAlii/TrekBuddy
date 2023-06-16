@@ -1,24 +1,32 @@
 import mongoose, { Schema } from 'mongoose';
 
-const userSchema = new Schema({
+const vendorSchema = new Schema({
     userName:{
         type: String,
         unique: true,
         maxLength: 50,
-        require: true,
+        require: true
     },
     email:{
         type: String,
         require: true,
         unique: true,
         maxlength : 30
-
     },
     password:{
         type: String,
         require: true,
         minlength: 8
 
+    },
+    contactNumber:{
+        type: String,
+        require: true
+    },
+    companyName:{
+        type: String,
+        require: true,
+        maxlength: 50
     },
     DateOfBirth:{
         type: String,
@@ -33,24 +41,15 @@ const userSchema = new Schema({
         type: String,
         //enum: ['admin', 'vendor', 'user'],
     },
-    contactNumber:{
-        type: String,
-        require: true
-    },
     token:{
         type: String,
         select: true,
         require: false,
         default: ""
-    },
-    otp:{
-        type: String,
-        default: ""
     }
-    
 },
     {
         timestamps: true
     })
-const usersSchema = mongoose.model("Users",userSchema);
-export default usersSchema;  
+const vendorsSchema = mongoose.model("Vendors",vendorSchema);
+export default vendorsSchema;  
