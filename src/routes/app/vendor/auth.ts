@@ -10,7 +10,7 @@ const vendorRouter = Router();
 
 vendorRouter.post("/vendorsignup",vendorSignupController);
 vendorRouter.post("/vendorlogin",vendorLoginController);
-vendorRouter.param("/forgetpassword",emailForgotPasswordController);
+vendorRouter.post("/forgetpassword",emailForgotPasswordController);
 vendorRouter.post("/emailVerification",emailVerificationController);
 vendorRouter.post("/otpResend",otpResendController);
 vendorRouter.post("/resetPassword",resetPasswordController);
