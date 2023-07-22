@@ -1,0 +1,47 @@
+.Destinations_container{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    background-color: white;
+    color:black;
+    margin: 2% 5%;
+    flex-wrap: wrap;
+}
+.section_title{
+    margin-top: 5%;
+    color:black;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.section_subtitle{
+    font-family: 'Seaweed Script', cursive;
+    font-size: 25px;
+    color: rgb(65, 179, 84);
+    margin-left: 38%;
+}
+.flex-item img {
+    border-radius: 15px;
+    border: none;
+    width: 380px;
+    height: 250px;
+    filter: brightness(50%)
+}
+
+.flex-item {
+    flex: 0 0 calc(33.33% - 10px); 
+    margin: 5px;
+    position: relative;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

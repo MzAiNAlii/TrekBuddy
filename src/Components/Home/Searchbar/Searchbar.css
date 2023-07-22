@@ -1,0 +1,65 @@
+.form_container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    border: solid white 2px;
+    border-radius: 55px;
+    margin: 5% 15%;
+    padding: 15px 15px;
+    gap: 5px;
+  }
+  
+  #searchbar{
+    background-color: rgb(65, 179, 84);
+    padding: 5%;
+    margin: 5%;
+  }
+
+  #searchbar h1 ,  #searchbar p{
+    margin-left: 15%;
+  }
+  #searchbar button{
+    border: solid rgb(65, 179, 84) 2px;
+    padding: 5px 15px;
+    border-radius: 25px;
+    margin-left: 15%;
+  }
+
+  form div {
+    flex: 1;
+  }
+  
+  #input_container {
+    font-size: 13px;
+    color: gray;
+  }
+
+  #label{
+    font-weight: 500;
+  }
+
+  form input[type="text"],
+  form select,
+  form input[type="submit"] {
+    display: block;
+    width: 60%;
+    border: none; 
+    outline: none; 
+  }
+  
+  form select {
+    width: 60%;
+  }
+  
+  .search button{
+    padding: 10% 30%;
+    background-color:rgb(65, 179, 84) ;
+    border-radius: 55px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .search {
+    flex: 0.5
+  }
+  
