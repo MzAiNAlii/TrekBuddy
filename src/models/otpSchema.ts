@@ -1,10 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
 
-const authenticationsSchemas = new Schema({
+const otpSchemas = new Schema({
     email:{
        type: String,
         require: true,
-        unique: true,
         maxlength : 30
 
     },
@@ -18,5 +17,5 @@ const authenticationsSchemas = new Schema({
 },{
     timestamps: true
 })
-const authenticationSchema = mongoose.model("AuthenticationSchema",authenticationsSchemas)
-export default authenticationSchema;
+const otpSchema = mongoose.model("otpSchema",otpSchemas)
+export default otpSchema;

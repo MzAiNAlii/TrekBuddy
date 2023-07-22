@@ -31,18 +31,12 @@ const userSchema = new Schema({
     },
     role:{
         type: String,
-        //enum: ['admin', 'vendor', 'user'],
+        enum: ['admin', 'vendor', 'user'],
     },
     contactNumber:{
         type: String,
         require: true
     },
-    token:{
-        type: String,
-        select: true,
-        require: false,
-        default: ""
-    }
 },
     {
         timestamps: true

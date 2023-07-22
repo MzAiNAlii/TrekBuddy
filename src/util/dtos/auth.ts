@@ -40,9 +40,10 @@ export  const loginDto = Joi.object({
 
 })
 
-export const forgetDto = Joi.object({
+export const forgotDto = Joi.object({
+    _id: Joi.string().optional(),
     email: Joi.string().max(50).optional(),
-    enterUserOtp: Joi.number().min(6).optional(),
+    enterOtp: Joi.number().min(6).optional(),
     newPassword: Joi.string().min(8).optional(),
     confirmPassword: Joi.string().min(8).optional()
 })

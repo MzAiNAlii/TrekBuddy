@@ -39,14 +39,8 @@ const vendorSchema = new Schema({
     },
     role:{
         type: String,
-        //enum: ['admin', 'vendor', 'user'],
+        enum: ['admin', 'vendor', 'user'],
     },
-    token:{
-        type: String,
-        select: true,
-        require: false,
-        default: ""
-    }
 },
     {
         timestamps: true

@@ -44,8 +44,7 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
       userName: existingVendor.userName,
       email: existingVendor.email
     },process.env.SECRET_KEY!,{
-      //expiresIn: '1m',
-      issuer: `http://localhost:${process.env.PORT!}`,
+      expiresIn: '30d',
       subject: existingVendor._id.toString()
     })
 

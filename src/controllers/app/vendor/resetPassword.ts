@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { forgotDto } from "../../../util/dtos/auth";
 import bcrypt from 'bcrypt'
-import usersSchema from "../../../models/app/userSchema";
 import otpSchema from "../../../models/otpSchema";
+import vendorsSchema from "../../../models/app/vendorSchema";
 
 const resetPasswordController : RequestHandler =async (req, res) =>{
     const validation = forgotDto.validate(req.body);
@@ -17,19 +17,19 @@ const resetPasswordController : RequestHandler =async (req, res) =>{
 
     try {
         const user = await otpSchema.findById({_id});
-        console.log(user?._id, user?.email)
+        //console.log(user!._id, user!.email)
 
-        const existingUser = await usersSchema.findOne({email: user!.email})
+        const existingVendor = await vendorsSchema.findOne({email: user!.email})
 
-        console.log(existingUser?.email);
+        //console.log(existingVendor!.email);
         
-        if(user!.email != existingUser!.email){
+        if(user!.email != existingVendor!.email){
             return res.status(403).json({message: "Access Denied"})
         }
 
-        if(!user){
-            return res.status(404).json({message: "User Not Found"})
-        }
+        // if(!user){
+        //     return res.status(404).json({message: "User Not Found"})
+        // }
         const password = `${newPassword}`
 
         if(newPassword !== confirmPassword){
@@ -38,7 +38,7 @@ const resetPasswordController : RequestHandler =async (req, res) =>{
 
         const hashPassword = await bcrypt.hash(password,8)
 
-        const updatePassword = await usersSchema.findOneAndUpdate(existingUser!._id,{
+        const updatePassword = await vendorsSchema.findOneAndUpdate(existingVendor!._id,{
             $set:{
                 password: hashPassword
             }

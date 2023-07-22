@@ -1,13 +1,14 @@
 import { RequestHandler } from "express";
-import { forgetDto } from "../../../util/dtos/auth";
-import usersSchema from "../../../models/app/userSchema";
+import { forgotDto } from "../../../util/dtos/auth";
+
 import nodemailer from 'nodemailer';
-import authenticationSchema from "../../../models/authenticationSchema";
+import otpSchema from "../../../models/otpSchema";
 import { otpRouter } from "../../../util/otp/otp";
+import vendorsSchema from "../../../models/app/vendorSchema";
 
-const userForgotPassword : RequestHandler =async(req, res)=> {
+const emailForgotPasswordController : RequestHandler =async(req, res)=> {
 
-  const validation = forgetDto.validate(req.body);
+  const validation = forgotDto.validate(req.body);
 
   if(validation.error){
       return res.status(400).json({
@@ -16,9 +17,9 @@ const userForgotPassword : RequestHandler =async(req, res)=> {
       })
     }
   const {email} =  req.body;
-  const userData =  await usersSchema.findOne({email})
+  const existingVendor =  await vendorsSchema.findOne({email})
 
-  if(!userData){
+  if(!existingVendor){
     return res.status(404).json({message: "User Not Found"})
   }
   const isOtp = otpRouter();
@@ -35,7 +36,7 @@ const userForgotPassword : RequestHandler =async(req, res)=> {
   // Send OTP email
   const sendOTPEmail = await transporter.sendMail({
     from: process.env.EMAIL_HOST_USER!,
-    to: userData!.email,
+    to: email,
     subject: 'OTP Verification',
     text: `Your OTP is: ${isOtp.userotp}`
   })
@@ -49,18 +50,22 @@ const userForgotPassword : RequestHandler =async(req, res)=> {
     });
 
   //console.log("message send",sendOTPEmail.messageId)
-  const newUserData = await authenticationSchema.create({
-    emails: email,
+  const newUserData = await otpSchema.create({
+    email: email,
     otp: isOtp.userotp,
     expire: isOtp.expirationTime
   })
 
+
+
   res.set('Content-Type', 'application/json');
             
   return res.status(200).json({
-    message: "Successsfully"
+    message: "Successsfully",
+    userId: newUserData._id,
+    userEmail: email
   
   });
 
 }
-export default userForgotPassword;
+export default emailForgotPasswordController;

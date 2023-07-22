@@ -1,14 +1,18 @@
 import { Router } from "express";
 import vendorSignupController from "../../../controllers/app/vendor/signup";
 import vendorLoginController from "../../../controllers/app/vendor/login";
-import vendorLogoutController from "../../../controllers/app/vendor/logout";
-import vendorForgotPassword from "../../../controllers/app/vendor/forgetPassword";
+import emailForgotPasswordController from "../../../controllers/app/vendor/emailForgotPassword";
+import otpResendController from "../../../controllers/app/vendor/otpResend";
+import emailVerificationController from "../../../controllers/app/vendor/emailVerification";
+import resetPasswordController from "../../../controllers/app/vendor/resetPassword";
 
-const vendorrouter = Router();
+const vendorRouter = Router();
 
-vendorrouter.post("/vendorsignup",vendorSignupController)
-vendorrouter.post("/vendorlogin",vendorLoginController),
-vendorrouter.post("/vendorlogout",vendorLogoutController)
-vendorrouter.post("/forgetpassword",vendorForgotPassword)
+vendorRouter.post("/vendorsignup",vendorSignupController);
+vendorRouter.post("/vendorlogin",vendorLoginController);
+vendorRouter.param("/forgetpassword",emailForgotPasswordController);
+vendorRouter.post("/emailVerification",emailVerificationController);
+vendorRouter.post("/otpResend",otpResendController);
+vendorRouter.post("/resetPassword",resetPasswordController);
 
-export default vendorrouter;
+export default vendorRouter;

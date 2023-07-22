@@ -13,11 +13,8 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
             errors: validation.error.details
         })
     }
-    const {userName, email, password} = req.body
-    const  existingUser = await usersSchema.findOne({
-      $or:[{userName},{email}]
-    })
-    
+    const {email, password} = req.body
+    const  existingUser = await usersSchema.findOne({email})
     if(existingUser!.role !== 'user'){
       return res.status(400).json({
         message: "Not found"
@@ -44,18 +41,11 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
       userName: existingUser.userName,
       email: existingUser.email
     },process.env.SECRET_KEY!,{
-      //expiresIn: '1h',
-      issuer: `http://localhost:${process.env.PORT!}`,
+      expiresIn: '30d',
       subject: existingUser._id.toString()
     })
 
-    //console.log("token is ", token)
-
-    const updateToken = await usersSchema.findOneAndUpdate(existingUser._id,{
-        $set:{
-            token
-        }
-    },{new : true})
+    // console.log("token is ", token)
     
     return res.json({
         message: "Login Successfully",
