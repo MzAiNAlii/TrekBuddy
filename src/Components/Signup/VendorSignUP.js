@@ -1,8 +1,11 @@
 import "./Signup.css"
+import { Link } from "react-router-dom"
 
-let Signup = () => {
+let VendorSignup = () => {
     return( <>
-        <form className="Container">
+        <form className="account_Container">
+        <p>Already Have an account?
+          <Link to="/login" id="login">Login</Link></p>
         <div className="ContentBorder">
         <h2  className="Title">Sign Up</h2>
             <div>
@@ -20,6 +23,10 @@ let Signup = () => {
     <input type="password" id="password" required/>
     </div>
     
+    <div>
+    <label htmlFor="companyName">company Name:</label>
+    <input type="text" id="companyName" required/>
+    </div>
     
     <div>
     <label htmlFor="dateOfBirth">Date of Birth:</label>
@@ -59,4 +66,4 @@ let Signup = () => {
     )
 }
 
-export default Signup
+export default VendorSignup

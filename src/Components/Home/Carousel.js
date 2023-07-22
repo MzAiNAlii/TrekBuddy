@@ -1,5 +1,4 @@
 import carousel_img1 from "../Assets/carousel_img1.jpg"
-import carousel_img2 from "../Assets/carousel_img2.jpg"
 import carousel_img3 from "../Assets/carousel_img3.jpg"
 import carousel_img4 from "../Assets/carousel_img4.jpg"
 import "./Carousel.css"

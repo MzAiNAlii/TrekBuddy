@@ -4,6 +4,7 @@
     justify-content: space-evenly;
     display :flex;
     color:white;
+    width: 100%; 
   }
 
   .nav_logo{
@@ -26,15 +27,53 @@
     gap: 50px;
   }
 
-  .signup , .login{
+  .login{
     border: solid rgb(65, 179, 84) 2px;
     padding: 5px 15px;
     border-radius: 25px;
     color: white;
   }
 
-  .signup:hover ,  .login:hover {
+  .signup{
+    color:white
+  }
+
+   .login:hover {
     border:none;
     color: rgb(65, 179, 84);
     background-color: white;
   }
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {
+  background-color: white;
+  color:rgb(65, 179, 84);
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: rgb(65, 179, 84);}

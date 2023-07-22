@@ -21,11 +21,13 @@ let NavBar = () => {
   </div>
 
   <div className="nav_btn">
-  <div>
-  <Link  className="signup" to="/signup">SignUP</Link>
+
+  <div className="dropdown">
+  <Link  className="signup" to="/signup"><i class="fa fa-fw fa-user"></i>SignUP</Link>
+  <div className="dropdown-content">
+    <Link to="/UserSignUP">User</Link>
+    <Link to="/VendorSignUP">Vendor</Link>
   </div>
-  <div>
-  <Link  className="login" to="/login">Login</Link>
   </div>
   </div>
   </div>

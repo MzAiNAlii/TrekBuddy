@@ -28,7 +28,7 @@ let About = () => {
           </div> 
 
             <div className="about__img">
-            <img src={aboutUs}/>
+            <img src={aboutUs} alt="About_Us"/>
             </div>
 
             </div>       

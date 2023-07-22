@@ -12,8 +12,8 @@ let OTP = () =>{
         </div>
         </div>
         <Link to="/Login">
-        <div id= "back-btn">
-            <button>OK</button>
+        <div>
+            <button id= "back-btn">OK</button>
         </div>
         </Link>
     </form>

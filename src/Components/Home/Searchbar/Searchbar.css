@@ -38,13 +38,11 @@
     font-weight: 500;
   }
 
-  form input[type="text"],
-  form select,
-  form input[type="submit"] {
+  .form_container input, .form_container select{
     display: block;
     width: 60%;
     border: none; 
-    outline: none; 
+    outline: none;
   }
   
   form select {
