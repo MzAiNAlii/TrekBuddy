@@ -1,10 +1,11 @@
 import "./Searchbar.css"
 let Form = () => {
-    return (< div id ="searchbar">
+    return (
+    < div id ="searchbar">
         <button>Book With Us!</button>
         <h1>Find Next Place To Visit</h1>
         <p>Discover amazing places at exclusive deals. Embrace adventure, serenity, and cultural insights</p>
-        <form className="form_container">
+        <form className="search_container">
           
             <div >
                 <label id = "label">Location</label>

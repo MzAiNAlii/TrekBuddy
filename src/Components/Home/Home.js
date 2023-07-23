@@ -4,7 +4,6 @@ import Packages from "./Packages/Packages"
 import Search from "./Searchbar/Searchbar"
 import Destinations from "./Destinations/Destinations"
 import Carousel from "./Carousel"
-import "./home.css"
 let Home = () => {
 return( 
       <>

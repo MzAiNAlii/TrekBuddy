@@ -2,6 +2,21 @@
     height: 500px;
 }
 
-.container p{
-    margin-bottom: 10%;
+.carousel_title{
+   font-size: 50px;
+}
+.carousel_subtitle{
+    padding-bottom: 10%;
+
+}
+
+@media screen and (max-width: 659px) {
+    .carousel_subtitle{
+        padding-bottom: 50%;
+        font-size: 10px;
+    }
+    .carousel_title{
+        font-size: 20px;
+     }
+
 }

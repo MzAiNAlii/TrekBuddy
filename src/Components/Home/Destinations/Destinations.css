@@ -45,3 +45,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  @media screen and (max-width: 659px) {
+    .section_subtitle{
+        font-family: 'Seaweed Script', cursive;
+        font-size: 25px;
+        color: rgb(65, 179, 84);
+        margin-left: 20%;
+    }
+  }

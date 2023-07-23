@@ -51,6 +51,46 @@
   padding-right: 15%;
 }
 
+@media screen and (max-width: 659px) {
+  .about__img img{
+    width: 250px;
+    height: 450px;
+    margin-top: 40%;
+    border-radius: 25px;
+   }
+
+   .section__title1{
+    font-family: 'Seaweed Script', cursive;
+    font-size: 20px;
+    color: rgb(65, 179, 84);
+    display: flex;
+    padding-left: 10%;
+  }
+
+  .section__title{
+    font-size: 20px;
+    font-weight: 500;
+    color: Black;
+    margin-top: 15%;
+    display: flex;
+    padding-left: 10%;
+  }
+
+  .about__content{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .about__data {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  
+}
+
 
 
 

@@ -1,6 +1,34 @@
 import "./about.css"
-import aboutUs from "../../Assets/aboutUs.jpg"
+import React, { useState, useEffect } from 'react';
+import firebase from "firebase/compat/app"; 
+import "firebase/compat/storage"; 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBcndkocEH7pz_Hqlh2ZKbqWr0q7gH_-bA",
+  authDomain: "trekbuddy-4a266.firebaseapp.com",
+  databaseURL: "https://trekbuddy-4a266-default-rtdb.firebaseio.com",
+  projectId: "trekbuddy-4a266",
+  storageBucket: "trekbuddy-4a266.appspot.com",
+  messagingSenderId: "925273324303",
+  appId: "1:925273324303:web:255d1b93d32ad4a2ad1c7a",
+  measurementId: "G-Z1LZWV2LS3"
+};
+firebase.initializeApp(firebaseConfig);
+
 let About = () => {
+  const getImageUrlFromFirebaseStorage = async () => {
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child("aboutUs.jpg"); 
+    const imageUrl = await fileRef.getDownloadURL();
+    return imageUrl;
+  };
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    getImageUrlFromFirebaseStorage()
+      .then((url) => setImageUrl(url))
+      .catch((error) => console.log("Error getting image URL:", error));
+  }, []);
     return(
       <section >
         <div className="about_container">
@@ -28,10 +56,13 @@ let About = () => {
           </div> 
 
             <div className="about__img">
-            <img src={aboutUs} alt="About_Us"/>
+            <img src={imageUrl} alt="About_Us"/>
             </div>
 
-            </div>       
+            </div>  
+
+             <div>
+    </div>     
       </section> 
     )
 }
