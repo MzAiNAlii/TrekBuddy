@@ -6,60 +6,12 @@ let UserSignup = () => {
   const [userData, setUserData] = useState({
     userName: "",
     email: "",
-    password: "", // Corrected to lowercase "password"
+    password: "", 
     dateOfBirth: "",
     gender: "",
     role: "",
     contactNumber: "",
   });
-
-  const postUserData = (event) => {
-    const { name, value } = event.target; // Destructure name and value directly
-    setUserData({ ...userData, [name]: value });
-  };
-
-  const submitData = async (event) => {
-    event.preventDefault();
-    const { userName, email, password, dateOfBirth, gender, role, contactNumber } = userData;
-
-    if (userName && email && password && dateOfBirth && gender && role && contactNumber) {
-      const res = await fetch(
-        "https://trekbuddy-4a266-default-rtdb.firebaseio.com/userDataRecords.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userName,
-            email,
-            password, // Corrected to lowercase "password"
-            dateOfBirth,
-            gender,
-            role,
-            contactNumber,
-          }),
-        }
-      );
-
-      if (res) {
-        setUserData({
-          userName: "",
-          email: "",
-          password: "", // Corrected to lowercase "password"
-          dateOfBirth: "",
-          gender: "",
-          role: "",
-          contactNumber: "",
-        });
-        alert("Data Stored");
-      } else {
-        alert("Please fill in the data");
-      }
-    } else {
-      alert("Please fill in the data");
-    }
-  };
 
   return (
     <>
@@ -74,7 +26,6 @@ let UserSignup = () => {
             <input
               name="userName"
               value={userData.userName}
-              onChange={postUserData}
               type="text"
               id="userName"
               required
@@ -86,7 +37,6 @@ let UserSignup = () => {
             <input
               name="email"
               value={userData.email}
-              onChange={postUserData}
               type="email"
               id="email"
               required
@@ -98,7 +48,6 @@ let UserSignup = () => {
             <input
               name="password"
               value={userData.password}
-              onChange={postUserData}
               type="password"
               id="password"
               required
@@ -110,7 +59,6 @@ let UserSignup = () => {
             <input
               name="dateOfBirth"
               value={userData.dateOfBirth}
-              onChange={postUserData}
               type="date"
               id="dateOfBirth"
               required
@@ -122,7 +70,6 @@ let UserSignup = () => {
             <input
               name="gender"
               value="male"
-              onChange={postUserData}
               type="radio"
               id="genderMale"
               required
@@ -131,7 +78,6 @@ let UserSignup = () => {
             <input
               name="gender"
               value="female"
-              onChange={postUserData}
               type="radio"
               id="genderFemale"
               required
@@ -141,7 +87,7 @@ let UserSignup = () => {
 
           <div>
             <label htmlFor="role">Role:</label>
-            <select id="role" name="role" onChange={postUserData} required>
+            <select id="role" name="role" value={userData.role} required>
               <option value="admin">Admin</option>
               <option value="vendor">Vendor</option>
               <option value="user">User</option>
@@ -153,7 +99,6 @@ let UserSignup = () => {
             <input
               name="contactNumber"
               value={userData.contactNumber}
-              onChange={postUserData}
               type="tel"
               id="contactNumber"
               pattern="[0-9]*"
@@ -162,7 +107,7 @@ let UserSignup = () => {
           </div>
 
           <div className="button_container">
-            <button onClick={submitData}>Submit</button>
+            <button type="submit">Submit</button>
           </div>
         </div>
       </form>
