@@ -22,58 +22,61 @@
   #text{
     color: white;
   }
-  .nav_btn{
-    display: flex;
-    gap: 50px;
-  }
 
-  .login{
-    border: solid rgb(65, 179, 84) 2px;
-    padding: 5px 15px;
-    border-radius: 25px;
+
+  .dropdown {
+    float: left;
+    position: relative; 
+    z-index: 2;
+  }
+  
+  .dropdown .dropbtn {
+    font-size: 16px;  
+    border: none;
+    outline: none;
     color: white;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
   }
 
-  .signup{
-    color:white
+
+  @media only screen and (min-width: 1440px){
+    #text{
+      color: white;
+      font-size: 25px;
+    }
+  
+    .nav_logo{
+      font-family: 'Seaweed Script', cursive;
+      font-weight: 700;
+      font-size: 30px;
+      color: white;
+    }
   }
-
-   .login:hover {
-    border:none;
-    color: rgb(65, 179, 84);
-    background-color: white;
-  }
-
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-
-.dropdown-content a:hover {
-  background-color: white;
-  color:rgb(65, 179, 84);
-}
-
-.dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: rgb(65, 179, 84);}

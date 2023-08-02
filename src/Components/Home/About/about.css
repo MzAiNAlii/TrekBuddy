@@ -91,6 +91,53 @@
   
 }
 
+@media screen and (min-width: 1440px){
+  .about_container{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .about__img img{
+    width: 800px;
+    height: 600px;
+    margin-top: 15%;
+    border-radius: 25px;
+   }
+   
+   .section__title1{
+     font-family: 'Seaweed Script', cursive;
+     font-size: 70px;
+     color: rgb(65, 179, 84);
+     display: flex;
+     padding-left: 15%;
+   }
+   
+   .section__title{
+     font-size: 70px;
+     font-weight: 500;
+     color: Black;
+     padding-top: 10%;
+     display: flex;
+     padding-left: 15%;
+   }
+   
+   .about__content{
+     display: flex;
+     justify-content: center;
+     flex-direction: column;
+     padding-left: 15%;
+     padding-right: 15%;
+     font-size: 25px;
+   }
+   
+   .about__data {
+     padding-top: 1%;
+     padding-left: 15%;
+     padding-right: 15%;
+     font-size: 25px;
+   }
+}
+
 
 
 

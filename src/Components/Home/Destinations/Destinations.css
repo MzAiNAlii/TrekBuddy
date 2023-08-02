@@ -54,3 +54,36 @@
         margin-left: 20%;
     }
   }
+
+  @media screen and (min-width: 1440px){
+    .section_title{
+        margin-top: 2%;
+        color:black;
+        text-align: center;
+        font-size: 100px;
+        font-weight: 500;
+    }
+    
+    .section_subtitle{
+        font-family: 'Seaweed Script', cursive;
+        font-size: 50px;
+        color: rgb(65, 179, 84);
+        margin-left: 38%;
+    }
+
+    .flex-item img {
+        border-radius: 15px;
+        border: none;
+        width: 750px;
+        height: 400px;
+        filter: brightness(50%)
+    }
+    
+    .caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 40px;
+      }
+  }
