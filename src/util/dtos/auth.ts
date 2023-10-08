@@ -1,28 +1,57 @@
-import Joi from 'joi'
+import Joi from 'joi';
 
-export const userSignupDto = Joi.object({
+export const UserSignupDto = Joi.object({
     firstName: Joi.string().max(50).required(),
-    lastName: Joi.string().max(50).required(),
+    lastName: Joi.string().max(50).optional(),
     email: Joi.string().max(50).required(),
     password: Joi.string().min(8).required(),
-    DateOfBirth: Joi.date(),
+    DateOfBirth: Joi.date().iso().optional(),
     Gender: Joi.string().valid('Male', 'Female', 'other'),
     //countryCode: Joi.string().valid('PK').required(),
     phoneNumber: Joi.string().pattern(/^[0-9]{7,15}$/).required(),
     role: Joi.string().required()
 });
 
-export const vendorSignupDto = Joi.object({
-    firstName: Joi.string().max(50).required(),
-    lastName: Joi.string().max(50).required(),
+export const ResetPasswordDto = Joi.object({
+    userId: Joi.string().optional().required(),
+    newPassword: Joi.string().min(8).required(),
+    confirmPassword: Joi.string().min(8).required()
+})
+
+export const VerifyOtpDto = Joi.object({
+    userId: Joi.string().required(),
+    otp: Joi.number().min(6).required,
+});
+
+export const SendOtpDto = Joi.object({
+    email: Joi.string().required()
+});
+
+export  const LoginDto = Joi.object({
+    // userName: Joi.string().max(50).trim(),
     email: Joi.string().max(50).required(),
     password: Joi.string().min(8).required(),
-    DateOfBirth: Joi.date(),
+
+})
+
+export const VendorSignupDto = Joi.object({
+    firstName: Joi.string().max(50).required(),
+    lastName: Joi.string().max(50).optional(),
+    email: Joi.string().max(50).required(),
+    password: Joi.string().min(8).required(),
+    DateOfBirth: Joi.date().iso().optional(),
     companyName: Joi.string().required(),
     Gender: Joi.string().valid('Male', 'Female', 'other'),
     //countryCode: Joi.string().valid('PK').required(),
     phoneNumber: Joi.string().pattern(/^[0-9]{7,15}$/).required(),
     role: Joi.string().required()
+});
+
+export const UpdateInfoDto = Joi.object({
+    userName: Joi.string(),
+    DateOfBirth: Joi.date().iso(),
+    contactNumber: Joi.string().pattern(/^[0-9]{7,15}$/).optional(),
+    companyName: Joi.string().optional()
 });
 
 export const adminSignupDto = Joi.object({
@@ -31,19 +60,6 @@ export const adminSignupDto = Joi.object({
     email: Joi.string().max(50).required(),
     password: Joi.string().min(8).required()
 
-})
+});
 
-export  const loginDto = Joi.object({
-    userName: Joi.string().max(50).trim(),
-    email: Joi.string().max(50),
-    password: Joi.string().min(8).required(),
 
-})
-
-export const forgotDto = Joi.object({
-    _id: Joi.string().optional(),
-    email: Joi.string().max(50).optional(),
-    enterOtp: Joi.number().min(6).optional(),
-    newPassword: Joi.string().min(8).optional(),
-    confirmPassword: Joi.string().min(8).optional()
-})

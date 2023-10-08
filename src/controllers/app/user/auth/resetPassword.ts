@@ -1,27 +1,23 @@
 import { RequestHandler } from "express";
-import { forgotDto } from "../../../util/dtos/auth";
 import bcrypt from 'bcrypt'
-import usersSchema from "../../../models/app/userSchema";
-import otpSchema from "../../../models/otpSchema";
+import usersSchema from "../../../../models/app/userSchema";
+import otpSchema from "../../../../models/otpSchema";
+import { ResetPasswordDto } from "../../../../util/dtos/auth";
 
 const resetPasswordController : RequestHandler =async (req, res) =>{
-    const validation = forgotDto.validate(req.body);
-    if(validation.error){
-        return res.status(400).json({
-            message: "Validation Failed",
-            erros: validation.error.details
-        })
-    }
-    const {newPassword, confirmPassword, _id} =  req.body;
-    //console.log(_id)
-
+    const validation = ResetPasswordDto.validate(req.body);
+    
     try {
-        const user = await otpSchema.findById({_id});
-        console.log(user?._id, user?.email)
 
+        if(validation.error){
+            return res.status(400).json({
+                message: "Validation Failed",
+                erros: validation.error.details
+            })
+        }
+        const {newPassword, confirmPassword, userId} =  req.body;
+        const user = await otpSchema.findById({_id: userId});
         const existingUser = await usersSchema.findOne({email: user!.email})
-
-        console.log(existingUser?.email);
         
         if(user!.email != existingUser!.email){
             return res.status(403).json({message: "Access Denied"})
@@ -43,17 +39,14 @@ const resetPasswordController : RequestHandler =async (req, res) =>{
                 password: hashPassword
             }
         },{new: true})
-
-        //console.log(updatePassword)
-
-        
+   
         return res.status(200).json({
             message: "Password Reset Successfully"
-        })
+        });
         
     } catch (error) {
-        return res.status(404).json({message: "User Not Found"})
-        
+        console.log(error);
+        return res.status(500).json({message: "Internal Server Error"});        
     }
-}
+};
 export default resetPasswordController;

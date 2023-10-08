@@ -20,8 +20,7 @@ export const otpRouter = ()=>{
       }
     }
     const otpToken = generateOTPWithExpiration(); // Generate OTP with 1 minutes expiration time
-    return otpToken;
-            
+    return otpToken;        
 }
 
 

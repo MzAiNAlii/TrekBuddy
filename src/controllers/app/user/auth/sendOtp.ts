@@ -1,15 +1,15 @@
 import { RequestHandler } from "express";
-import { forgotDto } from "../../../util/dtos/auth";
-import usersSchema from "../../../models/app/userSchema";
+import { SendOtpDto } from "../../../../util/dtos/auth";
+import usersSchema from "../../../../models/app/userSchema";
 import nodemailer from 'nodemailer';
-import otpSchema from "../../../models/otpSchema";
-import { otpRouter } from "../../../util/otp/otp";
+import otpSchema from "../../../../models/otpSchema";
+import { otpRouter } from "../../../../util/otp/otp";
 
-const emailForgotPasswordController : RequestHandler =async(req, res)=> {
+const sendOtpController : RequestHandler =async(req, res)=> {
+  const validation = SendOtpDto.validate(req.body);
 
-  const validation = forgotDto.validate(req.body);
-
-  if(validation.error){
+  try {
+    if(validation.error){
       return res.status(400).json({
         message: "Validation Failed",
         erros: validation.error.details
@@ -39,23 +39,12 @@ const emailForgotPasswordController : RequestHandler =async(req, res)=> {
     subject: 'OTP Verification',
     text: `Your OTP is: ${isOtp.userotp}`
   })
-  //console.log("Send use mail: ",sendOTPEmail)
-  transporter.sendMail(sendOTPEmail, (error, info) => {
-    if (error) {
-      console.error(error);
-      } else {
-      console.log('OTP email sent: ' + info.response);
-      }
-    });
-
-  //console.log("message send",sendOTPEmail.messageId)
+  
   const newUserData = await otpSchema.create({
     email: email,
     otp: isOtp.userotp,
     expire: isOtp.expirationTime
   })
-
-
 
   res.set('Content-Type', 'application/json');
             
@@ -65,6 +54,11 @@ const emailForgotPasswordController : RequestHandler =async(req, res)=> {
     userEmail: email
   
   });
-
-}
-export default emailForgotPasswordController;
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({message: "Internal Server Error"});
+    
+  }
+};
+export default sendOtpController;
