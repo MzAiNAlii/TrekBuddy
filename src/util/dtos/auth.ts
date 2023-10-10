@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 export const UserSignupDto = Joi.object({
     firstName: Joi.string().max(50).required(),
-    lastName: Joi.string().max(50).optional(),
+    lastName: Joi.string().max(50).optional(),  
     email: Joi.string().max(50).required(),
     password: Joi.string().min(8).required(),
-    DateOfBirth: Joi.date().iso().optional(),
+    DateOfBirth: Joi.string().optional(),
     Gender: Joi.string().valid('Male', 'Female', 'other'),
     //countryCode: Joi.string().valid('PK').required(),
     phoneNumber: Joi.string().pattern(/^[0-9]{7,15}$/).required(),
@@ -39,7 +39,7 @@ export const VendorSignupDto = Joi.object({
     lastName: Joi.string().max(50).optional(),
     email: Joi.string().max(50).required(),
     password: Joi.string().min(8).required(),
-    DateOfBirth: Joi.date().iso().optional(),
+    DateOfBirth: Joi.date().optional(),
     companyName: Joi.string().required(),
     Gender: Joi.string().valid('Male', 'Female', 'other'),
     //countryCode: Joi.string().valid('PK').required(),
@@ -49,7 +49,7 @@ export const VendorSignupDto = Joi.object({
 
 export const UpdateInfoDto = Joi.object({
     userName: Joi.string(),
-    DateOfBirth: Joi.date().iso(),
+    DateOfBirth: Joi.date().optional(),
     contactNumber: Joi.string().pattern(/^[0-9]{7,15}$/).optional(),
     companyName: Joi.string().optional()
 });

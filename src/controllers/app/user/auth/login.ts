@@ -14,21 +14,22 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
                 errors: validation.error.details
             })
         }
-        const {email, password} = req.body
+        const {email, password} = req.body;
         const  existingUser = await usersSchema.findOne({email})
+
+        if(!existingUser){
+            return res.status(404).json({
+                message: "User Not Exist",
+                status: false
+            })
+        }
+        
         if(existingUser!.role !== 'user'){
           return res.status(400).json({
             message: "Not found"
         }
           )}
           
-            
-        if(!existingUser){
-            return res.status(403).json({
-                message: "Invalid Credentials"
-    
-            })
-        }
         const matchedPassword = await bcrypt.compare(password,existingUser.password!)
     
         if(!matchedPassword){

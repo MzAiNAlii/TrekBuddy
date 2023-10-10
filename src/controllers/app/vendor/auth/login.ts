@@ -18,6 +18,13 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
         const  existingVendor = await vendorsSchema.findOne({
           $or:[{userName},{email}]
         })
+
+        if(!existingVendor){
+            return res.status(404).json({
+                message: "This Email is not Register",
+                status: false
+            })
+        }
         
         if(existingVendor!.role !== 'vendor'){
           return res.status(400).json({
@@ -25,12 +32,7 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
         }
         )}
             
-        if(!existingVendor){
-            return res.status(403).json({
-                message: "Invalid Credentials"
-    
-            })
-        }
+        
         const matchedPassword = await bcrypt.compare(password,existingVendor.password!)
     
         if(!matchedPassword){
