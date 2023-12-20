@@ -1,0 +1,49 @@
+
+
+.button{
+    background-color:  rgb(142, 142, 144);
+    border: none;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.image{
+    border-radius: 50%;
+    width: 4vw;
+}
+
+.breadcrumb{
+    border: 2px  rgb(142, 142, 144);
+    background-color:  rgb(142, 142, 144);
+}
+
+.text-bold{
+    font-weight: 500;
+}
+
+.user-info {
+    display: flex;
+    gap: 5%;
+  }
+
+  .chat-container {
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .chat-messages {
+    padding: 10px; 
+  }
+
+  .input-row {
+    display: flex;
+    align-items: center; 
+    gap: 10px; 
+  }
+  
+  

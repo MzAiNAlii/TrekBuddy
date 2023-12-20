@@ -1,0 +1,24 @@
+.background{
+    background-color:#e6e7ee;
+    box-shadow: 8px 8px 16px #d9d9d9, -8px -8px 16px #ffffff
+}
+
+.card-section{
+    margin: 5%;
+    display: flex;
+    column-gap: 2vw;
+}
+
+.card-item{
+ flex: 1
+}
+
+.bx{
+    margin-left: 2%;
+    font-size: 1.3vw;
+}
+
+.bold{
+    font-weight: 900;
+    font-size: 2vw;
+}
