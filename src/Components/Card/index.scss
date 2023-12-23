@@ -1,0 +1,47 @@
+.display-flex {
+    display: flex;
+    justify-content: space-between; 
+    position: relative; 
+  }
+  
+  .display-flex::before,
+  .display-flex::after {
+    content: "";
+    position: absolute;
+    top: 50%; 
+    width: 5px; 
+    background-color: #d0d4d8; 
+    transform: translateY(-50%); 
+  }
+  
+  .display-flex::before {
+    left: 52%; 
+    height: 100%;
+  }
+  
+  .display-flex > div > * {
+    position: relative; 
+    margin-bottom: 15px; 
+  }
+  
+  .display-flex > div > *::before {
+    content: "";
+    position: absolute;
+    left: 85%; 
+    bottom: 50%; 
+    width: calc(30% - 15px); 
+    height: 2%;
+    background-color: #d0d4d8; 
+  }
+  
+
+  .display-flex > div:first-child > *::before {
+    right: 30%; 
+    top:30%
+  }
+  
+  .display-flex > div:last-child > *::before {
+    left: -5%; 
+    top: 60%
+  }
+  

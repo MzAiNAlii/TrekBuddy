@@ -1,20 +1,22 @@
-import CardComponent from "./Components/Card/Cards"
-import './App.css';
-import AreaChart from "./Components/Chart/Chart";
-import Chat from "./Components/Chat/Chat";
+import CardComponent from "./Components/Card/index"
+import CirclesComponent from "./Components/Circles/Circles"
+import Calendar from "./Components/Calender/Calendar";
+import './App.scss';
 
 function App() {
   return (
     <>
     <div>
+      <Calendar/>
+    </div>
+    <div className="flex-components">
+    <div>
+      <CirclesComponent/>
+    </div>
+    <div>
       <CardComponent/>
     </div>
-     <div className="chart">
-     <AreaChart/>
-   </div>
-   <div className="chat">
-     <Chat/>
-   </div>
+    </div>
    </>
   );
 }

@@ -1,0 +1,70 @@
+.calendar {
+  margin: 5% 40%;
+  display: flex;
+  flex-direction: column;
+
+  ul {
+    list-style-type: none;
+  }
+
+  body {
+    font-family: Verdana, sans-serif;
+  }
+
+  .month {
+    padding: 10% 5%;
+    width: 100%;
+    background: #F0F4F8;
+    text-align: center;
+    box-shadow: -9px -9px 10px rgba(255, 255, 255, 0.8), 0px 5px 10px rgba(169, 169, 169, 0.8);
+    display: flex;
+    justify-content: space-around;
+
+    .arrow {
+      display: flex;
+      gap: 1vw;
+      
+    }
+
+    .prev,
+    .next {
+      padding: 100% 10%;
+      margin: 5% 0%;
+      cursor: pointer;
+      background: linear-gradient(
+        180deg,
+        #FACB30 -18%,
+        #FEF9C8 22.5%,
+        #C49530 67.84%,
+        #FFF8C4 116%
+      );
+    }
+  }
+
+  .days {
+    padding: 5% ;
+    background: #F0F4F8;
+    box-shadow: 5px 5px 10px #B2BDCBB2;
+    margin-top: 3%;
+
+    li {
+      box-shadow: 5px 5px 10px #d1d8e3b2;
+      margin: 2%;
+      padding: 1%;
+      list-style-type: none;
+      display: inline-block;
+
+      &.active {
+        padding: 5px;
+        background: linear-gradient(
+          180deg,
+          #FACB30 -18%,
+          #FEF9C8 22.5%,
+          #C49530 67.84%,
+          #FFF8C4 116%
+        );
+        color: black;
+      }
+    }
+  }
+}
