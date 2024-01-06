@@ -12,7 +12,7 @@ Trek Buddy is a MERN Stack-based trip-planning web application, that provides us
 - Bootstrap
 
 # Preview
-[Live at]([https://zarfaa.github.io/Portfolio/](https://github.com/Zarfaa/TrekBuddy))
+Live at https://github.com/Zarfaa/TrekBuddy
 
 
 
