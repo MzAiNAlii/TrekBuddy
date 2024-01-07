@@ -10,7 +10,7 @@ const vendorRouter = Router();
 
 vendorRouter.post("/signup", vendorSignupController);
 vendorRouter.post("/login", vendorLoginController);
-vendorRouter.post("/send-otp", sendOtpController );
+vendorRouter.post("/send-otp", sendOtpController);
 vendorRouter.post("/verify-otp", verifyOtpController);
 vendorRouter.post("/resend-otp", resendOtpController);
 vendorRouter.post("/resetPassword", resetPasswordController);

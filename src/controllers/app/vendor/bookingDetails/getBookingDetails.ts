@@ -1,10 +1,10 @@
 import { RequestHandler } from "express";
-import roomSchemas from "../../../../models/app/room";
+import hotelSchemas from "../../../../models/app/hotels";
 
 const getBookingDetailsController: RequestHandler = async (req, res) => {
   const { vendorId } = req.params;
   try {
-    const getAllBookingDetails = await roomSchemas.find({ vendorId });
+    const getAllBookingDetails = await hotelSchemas.find({ vendorId });
     if (getAllBookingDetails.length == 0) {
       return res.status(404).json({
         message: "No Posts",

@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import roomSchemas from "../../../../models/app/room";
+import hotelSchemas from "../../../../models/app/hotels";
 
 const updateBookingDetailsController: RequestHandler = async (req, res) => {
   const { id } = req.params;
@@ -8,6 +8,7 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
     const data = {
       address: req.body.address,
       hotelDetail: req.body.hotelDetail,
+      location: req.body.location,
     };
     const hotelArray = data.hotelDetail.map((hotel: any) => ({
       name: hotel.name,
@@ -16,7 +17,7 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
       rating: hotel.rating,
       rooms: hotel.rooms.map((room: any) => ({
         roomNumber: room.roomNumber,
-        capacity: room.capacity,
+        membersCapacity: room.membersCapacity,
         No_of_beds: room.No_of_beds,
         price: room.price,
         availability: room.availability,
@@ -36,7 +37,7 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
       });
     }
 
-    const existingVendorBookingDetails = await roomSchemas.findById(id);
+    const existingVendorBookingDetails = await hotelSchemas.findById(id);
 
     if (existingVendorBookingDetails) {
       existingVendorBookingDetails.hotels.forEach((hotel, hotelIndex) => {
@@ -50,12 +51,13 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
 
       existingVendorBookingDetails.set({
         address: data.address,
+        location: data.location,
         hotels: hotelArray,
       });
 
       const updatedPost = await existingVendorBookingDetails.save();
 
-      const allPosts = await roomSchemas.find({
+      const allPosts = await hotelSchemas.find({
         vendorId: updatedPost!.vendorId,
       });
 

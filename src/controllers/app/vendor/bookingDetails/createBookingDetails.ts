@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
-import roomSchemas from "../../../../models/app/room";
+import hotelSchemas from "../../../../models/app/hotels";
 
 const createBookingDetailsController: RequestHandler = async (req, res) => {
-  const { vendorId, address, hotelDetail } = req.body;
+  const { vendorId, location, address, hotelDetail } = req.body;
 
   try {
     const hotelArray: any = [];
@@ -14,7 +14,7 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         rating: hotel.rating,
         rooms: hotel.rooms.map((room: any) => ({
           roomNumber: room.roomNumber,
-          capacity: room.capacity,
+          membersCapacity: room.membersCapacity,
           No_of_beds: room.No_of_beds,
           price: room.price,
           availability: room.availability,
@@ -33,8 +33,9 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         message: "Images space is full. Maximum allowed is 5 images per room.",
       });
     }
-    const createBookingDetails = await roomSchemas.create({
+    const createBookingDetails = await hotelSchemas.create({
       vendorId,
+      location,
       address,
       hotels: hotelArray,
     });

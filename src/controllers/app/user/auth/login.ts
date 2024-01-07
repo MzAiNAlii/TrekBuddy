@@ -31,6 +31,7 @@ const vendorLoginController : RequestHandler = async(req, res) =>{
           )}
           
         const matchedPassword = await bcrypt.compare(password,existingUser.password!)
+        
     
         if(!matchedPassword){
             return res.status(403).json({

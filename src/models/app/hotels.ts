@@ -1,9 +1,12 @@
 import mongoose, { Schema } from "mongoose";
 
-const roomSchema = new Schema({
+const hotelSchema = new Schema({
   vendorId: {
     type: mongoose.Types.ObjectId,
     ref: "Vendors",
+  },
+  location: {
+    type: String,
   },
   address: {
     street: String,
@@ -18,10 +21,10 @@ const roomSchema = new Schema({
         type: String,
         required: true,
       },
-      classType:{ 
+      classType: {
         type: String,
-        enum: ['Business', 'First', 'Economy']
-    },
+        enum: ["Business", "First", "Economy"],
+      },
       description: String,
       rating: {
         type: Number,
@@ -33,8 +36,7 @@ const roomSchema = new Schema({
             type: Number,
             required: true,
           },
-          //type: String,
-          capacity: Number,
+          membersCapacity: Number,
           No_of_beds: String,
           price: Number,
           availability: [
@@ -56,5 +58,5 @@ const roomSchema = new Schema({
   ],
 });
 
-const roomSchemas = mongoose.model("rooms", roomSchema)
-export default roomSchemas;
+const hotelSchemas = mongoose.model("hotelRooms", hotelSchema);
+export default hotelSchemas;
