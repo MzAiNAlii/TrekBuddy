@@ -1,52 +1,51 @@
 import { RequestHandler } from "express";
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 import otpSchema from "../../../../models/otpSchema";
 import { otpRouter } from "../../../../util/otp/otp";
 
-const resendOtpController : RequestHandler = async (req, res)=> {
-  const {userId} = req.body;
+const resendOtpController: RequestHandler = async (req, res) => {
+  const { userId } = req.body;
 
-    try {
-      const existingUserOtp = await otpSchema.findById({_id: userId})
-      const isOtp = otpRouter();
-      const transporter = nodemailer.createTransport({
-        service: process.env.EMAIL_HOST_SERVICE!,
-        auth: {
+  try {
+    const existingUserOtp = await otpSchema.findById({ _id: userId });
+    const isOtp = otpRouter();
+    const transporter = nodemailer.createTransport({
+      service: process.env.EMAIL_HOST_SERVICE!,
+      auth: {
         user: process.env.EMAIL_HOST_USER!,
-        pass: process.env.EMAIL_HOST_PASSWORD!
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
-      })
+        pass: process.env.EMAIL_HOST_PASSWORD!,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
-      // Send OTP email
+    // Send OTP email
     const sendOTPEmail = await transporter.sendMail({
       from: process.env.EMAIL_HOST_USER!,
       to: existingUserOtp!.email!,
-      subject: 'For Email Verification',
-      text: `Your OTP is: ${isOtp.userotp}`
-      })
-    
-    const updateOtp = await otpSchema.findOneAndUpdate(existingUserOtp!._id,{
-          $set:{
-            otp: isOtp.userotp,
-            expire: isOtp.expirationTime
+      subject: "For Email Verification",
+      text: `Your OTP is: ${isOtp.userotp}`,
+    });
 
-          }
-       })
+    const updateOtp = await otpSchema.findOneAndUpdate(existingUserOtp!._id, {
+      $set: {
+        otp: isOtp.userotp,
+        expire: isOtp.expirationTime,
+      },
+    });
     const updatedData = await otpSchema.findOne(existingUserOtp!._id);
 
     return res.json({
-      message : "Success",
+      message: "Success",
       data: {
         userId: updatedData!._id,
-        userEmail: existingUserOtp!.email
-      }
+        userEmail: existingUserOtp!.email,
+      },
     });
-        
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({message: "Internal Server Error"});    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 export default resendOtpController;

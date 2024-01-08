@@ -39,12 +39,7 @@ const hotelSchema = new Schema({
           membersCapacity: Number,
           No_of_beds: String,
           price: Number,
-          availability: [
-            {
-              date: Date,
-              available: Boolean,
-            },
-          ],
+          availability: Boolean,
           images: [
             {
               imgURL: {

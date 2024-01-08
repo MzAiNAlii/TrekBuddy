@@ -31,7 +31,7 @@ const searchingRoomController: RequestHandler = async (req, res) => {
         $lte: maxCapacityMembers,
       },
       "hotels.rooms.price": { $gte: minPrice, $lte: maxPrice },
-      "hotels.rooms.availability.available": true,
+      "hotels.rooms.availability": true,
     };
     const rooms = await hotelSchemas.find(query);
 
