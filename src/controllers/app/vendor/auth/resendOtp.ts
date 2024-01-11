@@ -25,8 +25,8 @@ const resendOtpController : RequestHandler = async (req, res)=> {
     const sendOTPEmail = await transporter.sendMail({
       from: process.env.EMAIL_HOST_USER!,
       to: existingVendorOtp!.email!,
-      subject: 'For Email Verification',
-      text: `Your OTP is: ${isOtp.userotp}`
+      subject: "here's your New PIN",
+      text: `Enter this code to complete the reset: ${isOtp.userotp}`
       })
     
     const updateOtp = await otpSchema.findOneAndUpdate(existingVendorOtp!._id,{

@@ -36,8 +36,8 @@ const sendOtpController : RequestHandler =async(req, res)=> {
   const sendOTPEmail = await transporter.sendMail({
     from: process.env.EMAIL_HOST_USER!,
     to: email,
-    subject: 'OTP Verification',
-    text: `Your OTP is: ${isOtp.userotp}`
+    subject: "here's Your PIN",
+    text: `Enter this code to complete the reset: ${isOtp.userotp}`
   })
   
   const newUserData = await otpSchema.create({
