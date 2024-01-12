@@ -20,17 +20,23 @@ const resetPasswordController : RequestHandler =async (req, res) =>{
         const existingUser = await usersSchema.findOne({email: user!.email})
         
         if(user!.email != existingUser!.email){
-            return res.status(403).json({message: "Access Denied"})
+            return res.status(403).json({message: "User Not Found"})
         }
 
         if(!user){
             return res.status(404).json({message: "User Not Found"})
+        }
+
+        if(user.isVerify !== true){
+            return res.status(403).json({ message: "Otp verification method is not verified" });
         }
         const password = `${newPassword}`
 
         if(newPassword !== confirmPassword){
             return res.status(403).json({message: "Password not Match"})
         }
+
+        await otpSchema.findByIdAndDelete({_id: userId})
 
         const hashPassword = await bcrypt.hash(password,8)
 

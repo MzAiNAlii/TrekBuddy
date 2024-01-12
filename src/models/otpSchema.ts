@@ -14,6 +14,11 @@ const otpSchemas = new Schema(
     expire: {
       type: String,
     },
+    isVerify:{
+      type: Boolean,
+      default: false
+
+    },
   },
   {
     timestamps: true,

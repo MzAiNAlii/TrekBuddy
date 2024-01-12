@@ -3,7 +3,7 @@ import hotelSchemas from "../../../../models/app/hotels";
 
 const createBookingDetailsController: RequestHandler = async (req, res) => {
   const { vendorId, location, address, hotelDetail } = req.body;
-
+  console.log(req.body);
   try {
     const hotelArray: any = [];
     hotelDetail.forEach((hotel: any) => {
@@ -11,7 +11,7 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         name: hotel.name,
         classType: hotel.classType,
         description: hotel.description,
-        rating: hotel.rating,
+        //rating: hotel.rating,
         rooms: hotel.rooms.map((room: any) => ({
           roomNumber: room.roomNumber,
           membersCapacity: room.membersCapacity,
@@ -24,6 +24,12 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         })),
       });
     });
+    
+    // console.log(hotelArray.map((hot: any)=>
+    // hot.rooms.map((ro: any)=> ro.images)
+    // ));
+    
+
     const isImagesSpaceFull = hotelArray.some((hotel: any) =>
       hotel.rooms.some((room: any) => room.images.length > 5)
     );

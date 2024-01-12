@@ -11,7 +11,7 @@ export const UserSignupDto = Joi.object({
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{7,15}$/)
     .required(),
-  role: Joi.string().required(),
+  //role: Joi.string(),
 });
 
 export const ResetPasswordDto = Joi.object({
@@ -47,7 +47,7 @@ export const VendorSignupDto = Joi.object({
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{7,15}$/)
     .required(),
-  role: Joi.string().required(),
+  //role: Joi.string(),
 });
 
 export const UpdateInfoDto = Joi.object({

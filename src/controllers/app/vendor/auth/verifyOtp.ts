@@ -13,7 +13,7 @@ const verifyOtpController : RequestHandler = async(req, res)=> {
             })
         }
         const {otp, userId} =  req.body;
-        const verifyOtp   = await otpSchema.findById({userId});
+        const verifyOtp   = await otpSchema.findById({_id: userId});
         let currentTime = new Date();
         let expirationTime = currentTime.toTimeString().slice(0, 8);
 
@@ -24,6 +24,17 @@ const verifyOtpController : RequestHandler = async(req, res)=> {
         if(verifyOtp!.expire! <= expirationTime){
             return res.status(498).json({message: "OTP is Expired"})
         }
+
+        await otpSchema.findByIdAndUpdate(
+          { _id: userId },
+          {
+            $set: {
+              isVerify: true,
+            },
+          },
+          { new: true }
+        );
+
         return res.status(200).json({
             message:"Verification Successfull"
         });
