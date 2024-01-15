@@ -10,10 +10,11 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
   const { bookingRoomDays, bookingStartDate, bookingEndDate } = req.body;
   try {
     const userInfo = await usersSchema.findById({ _id: userId });
-    const vendorInfo = await vendorsSchema.findById({_id: vendorId});
+    const vendorInfo = await vendorsSchema.findById({ _id: vendorId });
     const hotelRoomDetails: any = await hotelSchemas.findById({ _id: hotelId });
-    const hotelName = hotelRoomDetails.hotels.map((hotel_name: any)=> hotel_name.name);
-    
+    const hotelName = hotelRoomDetails.hotels.map(
+      (hotel_name: any) => hotel_name.name
+    );
 
     const rooms = hotelRoomDetails.hotels[0].rooms;
 
@@ -28,13 +29,12 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
       });
     });
 
-    const roomNumber = roomArray.map((room_no: any)=> room_no.roomNumber);
+    const roomNumber = roomArray.map((room_no: any) => room_no.roomNumber);
     const membersCapacity = roomArray.map(
       (members_capacity: any) => members_capacity.roomNumber
     );
     const No_of_beds = roomArray.map((No_of_bed: any) => No_of_bed.No_of_beds);
     const price = roomArray.map((room_price: any) => room_price.price);
-    
 
     const transporter = nodemailer.createTransport({
       service: process.env.EMAIL_HOST_SERVICE!,
@@ -47,9 +47,9 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
       },
     });
     // Send email
-    const sendOTPEmail = await transporter.sendMail({
+    await transporter.sendMail({
       from: userInfo!.email,
-      to: vendorInfo!.email,
+      to: userInfo!.email,
       subject: "Request for Room Booking Approval",
       html: `<!DOCTYPE html>
 <html lang="en">
@@ -72,6 +72,7 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
         <li><strong>Room Number:</strong> ${roomNumber}</li>
         <li><strong>Members Capacity:</strong> ${membersCapacity}</li>
         <li><strong>Number of Beds:</strong> ${No_of_beds}</li>
+        <li><strong>Room Price Per Day:</strong> ${rooms[0].price}</li>
         <li><strong>Total Price:</strong> ${price}</li>
         <li><strong>Total Day For Booking Room:</strong> ${bookingRoomDays}</li>
     </ul>
@@ -83,6 +84,13 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
 
     const addDetails = await bookingRoomSchemas.create({
       userId,
+      userInfo: [
+        {
+          userName: userInfo?.userName,
+          email: userInfo?.email,
+          contactNumber: userInfo?.contactNumber,
+        },
+      ],
       vendorId,
       hotelId,
       rooms: roomArray,
@@ -92,7 +100,6 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
     });
 
     res.set("Content-Type", "application/json");
-
 
     return res.status(200).json({
       message: "Send Request For Room Booking Successfully",

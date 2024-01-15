@@ -6,6 +6,19 @@ const bookingRoomSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "Users",
     },
+    userInfo: [
+      {
+        userName: {
+          type: String,
+        },
+        email: {
+          type: String,
+        },
+        contactNumber: {
+          type: String
+        },
+      },
+    ],
     vendorId: {
       type: mongoose.Types.ObjectId,
       ref: "Vendors",
