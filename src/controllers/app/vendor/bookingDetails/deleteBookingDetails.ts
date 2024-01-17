@@ -1,16 +1,16 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const deleteBookingDetailsController: RequestHandler = async (req, res) => {
   const { id } = req.params;
   try {
-    const findVendor = await hotelSchemas.findById({ _id: id });
+    const findVendor = await hotelRoomSchemas.findById({ _id: id });
     if (!findVendor) {
       return res.status(404).json({
         message: "Not Found",
       });
     }
-    await hotelSchemas.findByIdAndDelete({ _id: findVendor._id });
+    await hotelRoomSchemas.findByIdAndDelete({ _id: findVendor._id });
     return res.status(200).json({
       message: "Post Delete Successully",
     });

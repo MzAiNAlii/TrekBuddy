@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const updateBookingDetailsController: RequestHandler = async (req, res) => {
   const { id } = req.params;
@@ -37,7 +37,7 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
       });
     }
 
-    const existingVendorBookingDetails = await hotelSchemas.findById(id);
+    const existingVendorBookingDetails = await hotelRoomSchemas.findById(id);
 
     if (existingVendorBookingDetails) {
       existingVendorBookingDetails.hotels.forEach((hotel, hotelIndex) => {
@@ -57,7 +57,7 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
 
       const updatedPost = await existingVendorBookingDetails.save();
 
-      const allPosts = await hotelSchemas.find({
+      const allPosts = await hotelRoomSchemas.find({
         vendorId: updatedPost!.vendorId,
       });
 
@@ -71,7 +71,6 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       message: "Internal Server Error",
     });

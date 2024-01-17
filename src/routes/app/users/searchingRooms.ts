@@ -4,6 +4,7 @@ import roomDetailController from "../../../controllers/app/user/bookingDetails/R
 import sendRequestRoomBookingController from "../../../controllers/app/user/bookingRequests/sendRequestRoomBooking";
 import pendingBookingRequestController from "../../../controllers/app/user/bookingRequests/pendingBookingRequest";
 import activeBookingController from "../../../controllers/app/user/bookingRequests/activeBooking";
+import cancelBookingController from "../../../controllers/app/user/bookingRequests/cancelBooking";
 
 const bookRoomRouter = Router();
 
@@ -18,5 +19,6 @@ bookRoomRouter.get(
   pendingBookingRequestController
 );
 bookRoomRouter.get("/active-booking/:userId", activeBookingController);
+bookRoomRouter.delete("/cancle-booking/:bookingId", cancelBookingController);
 
 export default bookRoomRouter;

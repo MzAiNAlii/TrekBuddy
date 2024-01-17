@@ -1,27 +1,32 @@
 import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
 import bookingRoomSchemas from "../../../../models/app/bookingRoom";
-import usersSchema from "../../../../models/app/userSchema";
 import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
+import usersSchema from "../../../../models/app/userSchema";
 import vendorsSchema from "../../../../models/app/vendorSchema";
 
-const rejectBookingRequestController: RequestHandler = async (req, res) => {
+const cancelBookingController: RequestHandler = async (req, res) => {
   const { bookingId } = req.params;
   try {
-    const checkPendingRequests = await bookingRoomSchemas.findById({
+    const checkBooking = await bookingRoomSchemas.findById({
       _id: bookingId,
     });
 
     const userInfo = await usersSchema.findById({
-      _id: checkPendingRequests?.userId,
+      _id: checkBooking?.userId,
     });
     const vendorInfo = await vendorsSchema.findById({
-      _id: checkPendingRequests?.vendorId,
+      _id: checkBooking?.vendorId,
     });
     const hotelRoomDetails: any = await hotelRoomSchemas.findById({
-      _id: checkPendingRequests?.roomId,
+      _id: checkBooking?.roomId,
     });
 
+    const hotelName = hotelRoomDetails.hotels.map(
+      (hotel_name: any) => hotel_name.name
+    );
+    const rooms: any = hotelRoomDetails.hotels[0].rooms;
+    if(checkBooking?.roomBookingStatus == true || checkBooking?.roomBookingStatus == false){
     hotelRoomDetails.hotels.forEach((hotel: any) => {
       hotel.rooms.forEach((room: any) => {
         room.availability = true;
@@ -29,12 +34,6 @@ const rejectBookingRequestController: RequestHandler = async (req, res) => {
     });
 
     await hotelRoomDetails.save();
-
-    const hotelName = hotelRoomDetails.hotels.map(
-      (hotel_name: any) => hotel_name.name
-    );
-    const rooms: any = hotelRoomDetails.hotels[0].rooms;
-
     const transporter = nodemailer.createTransport({
       service: process.env.EMAIL_HOST_SERVICE!,
       auth: {
@@ -47,9 +46,9 @@ const rejectBookingRequestController: RequestHandler = async (req, res) => {
     });
 
     await transporter.sendMail({
-      from: vendorInfo!.email,
-      to: userInfo!.email,
-      subject: "Reject Your Request for Room Booking ",
+      from: userInfo!.email,
+      to: vendorInfo!.email,
+      subject: "Cancel the Book Room",
       html: `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -63,31 +62,31 @@ const rejectBookingRequestController: RequestHandler = async (req, res) => {
             <strong>I hope this email roomDetailss you well.</strong> My name is ${
               vendorInfo!.userName
             }</strong>, and I am writing to inquire about the availability of rooms at your hotel <strong>${hotelName}</strong> for the dates <strong>${
-        checkPendingRequests?.bookingStartDate
-      }</strong> to <strong>${checkPendingRequests?.bookingEndDate}</strong>.
+        checkBooking?.bookingStartDate
+      }</strong> to <strong>${checkBooking?.bookingEndDate}</strong>.
         </p>
 
         <h2>Booking Details:</h2>
 
         <ul>
             <li><strong>Room Number:</strong> ${
-              checkPendingRequests?.rooms[0].roomNumber
+              checkBooking?.rooms[0].roomNumber
             }</li>
             <li><strong>Members Capacity:</strong> ${
-              checkPendingRequests?.rooms[0].membersCapacity
+              checkBooking?.rooms[0].membersCapacity
             }</li>
             <li><strong>Number of Beds:</strong> ${
-              checkPendingRequests?.rooms[0].No_of_beds
+              checkBooking?.rooms[0].No_of_beds
             }</li>
             </li>
             <li><strong>Room Price Per Day:</strong>
             ${rooms[0].price}
             </li>
             <li><strong>Total Price:</strong> ${
-              checkPendingRequests?.rooms[0].price
+              checkBooking?.rooms[0].price
             }</li>
             <li><strong>Total Day For Booking Room:</strong>
-            ${checkPendingRequests?.bookingRoomDays}
+            ${checkBooking?.bookingRoomDays}
             </li>
         </ul>
 
@@ -97,12 +96,13 @@ const rejectBookingRequestController: RequestHandler = async (req, res) => {
     });
     await bookingRoomSchemas.findByIdAndDelete({ _id: bookingId });
     return res.status(200).json({
-      message: "Reject Booking Request Successfully",
+      message: "Cancel the Book Room Successfully",
     });
+}
   } catch (error) {
     return res.status(500).json({
       message: "Internal Server Error",
     });
   }
 };
-export default rejectBookingRequestController;
+export default cancelBookingController;

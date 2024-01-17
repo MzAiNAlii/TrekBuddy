@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const searchingRoomController: RequestHandler = async (req, res) => {
   const {
@@ -11,7 +11,7 @@ const searchingRoomController: RequestHandler = async (req, res) => {
     maxPrice,
   } = req.body;
   try {
-    const classTypeExists = await hotelSchemas.exists({
+    const classTypeExists = await hotelRoomSchemas.exists({
       location,
       "hotels.classType": classType,
     });
@@ -33,7 +33,7 @@ const searchingRoomController: RequestHandler = async (req, res) => {
       "hotels.rooms.price": { $gte: minPrice, $lte: maxPrice },
       "hotels.rooms.availability": true,
     };
-    const rooms = await hotelSchemas.find(query);
+    const rooms = await hotelRoomSchemas.find(query);
 
     if (rooms.length === 0) {
       return res.status(404).json({
@@ -49,7 +49,6 @@ const searchingRoomController: RequestHandler = async (req, res) => {
       data: rooms,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       message: "Internal Server Error",
     });

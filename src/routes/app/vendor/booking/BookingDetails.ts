@@ -3,6 +3,8 @@ import getBookingDetailsController from "../../../../controllers/app/vendor/book
 import updateBookingDetailsController from "../../../../controllers/app/vendor/bookingDetails/updateBookingDetails";
 import deleteBookingDetailsController from "../../../../controllers/app/vendor/bookingDetails/deleteBookingDetails";
 import createBookingDetailsController from "../../../../controllers/app/vendor/bookingDetails/createBookingDetails";
+import unavailabilityRoomController from "../../../../controllers/app/vendor/bookingDetails/pendingRoomsAvailability";
+import updateRoomAvailabilityController from "../../../../controllers/app/vendor/bookingDetails/updateRoomAvailability";
 
 const bookingDetailsRouter = Router();
 
@@ -21,6 +23,14 @@ bookingDetailsRouter.patch(
 bookingDetailsRouter.delete(
   "/delete-BookingDetails/:id",
   deleteBookingDetailsController
+);
+bookingDetailsRouter.get(
+  "/pending-room/:vendorId",
+  unavailabilityRoomController
+);
+bookingDetailsRouter.patch(
+  "/update-roomAvailability/:roomId",
+  updateRoomAvailabilityController
 );
 
 export default bookingDetailsRouter;

@@ -1,54 +1,51 @@
 import { RequestHandler } from "express";
-import nodemailer from 'nodemailer';
-import otpSchema from "../../../../models/otpSchema";
+import nodemailer from "nodemailer";
+import otpSchema from "../../../../models/app/otpSchema";
 import { otpRouter } from "../../../../util/otp/otp";
 
-const resendOtpController : RequestHandler = async (req, res)=> {
-  const {userId} = req.body;
-    try {
+const resendOtpController: RequestHandler = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const existingVendorOtp = await otpSchema.findById({ _id: userId });
+    const isOtp = otpRouter();
 
-      const existingVendorOtp = await otpSchema.findById({_id: userId});
-      const isOtp = otpRouter();
-
-      const transporter = nodemailer.createTransport({
-        service: process.env.EMAIL_HOST_SERVICE!,
-        auth: {
+    const transporter = nodemailer.createTransport({
+      service: process.env.EMAIL_HOST_SERVICE!,
+      auth: {
         user: process.env.EMAIL_HOST_USER!,
-        pass: process.env.EMAIL_HOST_PASSWORD!
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
-      })
+        pass: process.env.EMAIL_HOST_PASSWORD!,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
-      // Send OTP email
+    // Send OTP email
     const sendOTPEmail = await transporter.sendMail({
       from: process.env.EMAIL_HOST_USER!,
       to: existingVendorOtp!.email!,
       subject: "here's your New PIN",
-      text: `Enter this code to complete the reset: ${isOtp.userotp}`
-      })
-    
-    const updateOtp = await otpSchema.findOneAndUpdate(existingVendorOtp!._id,{
-          $set:{
-            otp: isOtp.userotp,
-            expire: isOtp.expirationTime
+      text: `Enter this code to complete the reset: ${isOtp.userotp}`,
+    });
 
-          }
-       })
+    const updateOtp = await otpSchema.findOneAndUpdate(existingVendorOtp!._id, {
+      $set: {
+        otp: isOtp.userotp,
+        expire: isOtp.expirationTime,
+      },
+    });
     const updatedData = await otpSchema.findOne(existingVendorOtp!._id);
 
     return res.json({
-      message : "Success",
+      message: "Success",
       data: {
         userId: updatedData!._id,
-        userEmail: existingVendorOtp!.email
-      }
-    })
-        
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({message: "Internal Server Error"});    
-    }
+        userEmail: existingVendorOtp!.email,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 export default resendOtpController;

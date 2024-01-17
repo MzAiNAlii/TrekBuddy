@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { ResetPasswordDto } from "../../../../util/dtos/auth";
 import bcrypt from "bcrypt";
-import otpSchema from "../../../../models/otpSchema";
+import otpSchema from "../../../../models/app/otpSchema";
 import vendorsSchema from "../../../../models/app/vendorSchema";
 
 const resetPasswordController: RequestHandler = async (req, res) => {
@@ -28,7 +28,9 @@ const resetPasswordController: RequestHandler = async (req, res) => {
     }
 
     if (user!.isVerify !== true) {
-      return res.status(403).json({ message: "Otp verification method is not verified" });
+      return res
+        .status(403)
+        .json({ message: "Otp verification method is not verified" });
     }
     const password = `${newPassword}`;
 

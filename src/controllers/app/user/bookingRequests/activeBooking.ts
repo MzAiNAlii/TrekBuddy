@@ -19,7 +19,6 @@ const activeBookingController: RequestHandler = async (req, res) => {
       data: checkPendingRequests,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",
     });

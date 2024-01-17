@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
-import otpSchema from "../../../../models/otpSchema";
+import otpSchema from "../../../../models/app/otpSchema";
 import { otpRouter } from "../../../../util/otp/otp";
 
 const resendOtpController: RequestHandler = async (req, res) => {

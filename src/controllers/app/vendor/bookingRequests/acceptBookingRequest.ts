@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
 import bookingRoomSchemas from "../../../../models/app/bookingRoom";
 import usersSchema from "../../../../models/app/userSchema";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 import vendorsSchema from "../../../../models/app/vendorSchema";
 
 const acceptBookingController: RequestHandler = async (req, res) => {
@@ -13,7 +13,7 @@ const acceptBookingController: RequestHandler = async (req, res) => {
     const vendorInfo = await vendorsSchema.findById({
       _id: roomDetails?.vendorId,
     });
-    const hotelRoomDetails: any = await hotelSchemas.findById({
+    const hotelRoomDetails: any = await hotelRoomSchemas.findById({
       _id: roomDetails?.roomId,
     });
     const hotelName = hotelRoomDetails.hotels.map(
@@ -96,7 +96,9 @@ const acceptBookingController: RequestHandler = async (req, res) => {
       data: updateBookingStatus,
     });
   } catch (error) {
-    console.log(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
 };
 export default acceptBookingController;

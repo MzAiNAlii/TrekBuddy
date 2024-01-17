@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const createBookingDetailsController: RequestHandler = async (req, res) => {
   const { vendorId, location, address, hotelDetail } = req.body;
@@ -11,7 +11,6 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         name: hotel.name,
         classType: hotel.classType,
         description: hotel.description,
-        //rating: hotel.rating,
         rooms: hotel.rooms.map((room: any) => ({
           roomNumber: room.roomNumber,
           membersCapacity: room.membersCapacity,
@@ -25,20 +24,15 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
       });
     });
 
-    // console.log(hotelArray.map((hot: any)=>
-    // hot.rooms.map((ro: any)=> ro.images)
-    // ));
-
     const isImagesSpaceFull = hotelArray.some((hotel: any) =>
       hotel.rooms.some((room: any) => room.images.length > 5)
     );
-
     if (isImagesSpaceFull) {
       return res.status(400).json({
         message: "Images space is full. Maximum allowed is 5 images per room.",
       });
     }
-    const createBookingDetails = await hotelSchemas.create({
+    const createBookingDetails = await hotelRoomSchemas.create({
       vendorId,
       location,
       address,
@@ -49,7 +43,6 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
       data: createBookingDetails,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: error,
     });

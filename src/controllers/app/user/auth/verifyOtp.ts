@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import otpSchema from "../../../../models/otpSchema";
+import otpSchema from "../../../../models/app/otpSchema";
 import { VerifyOtpDto } from "../../../../util/dtos/auth";
 
 const verifyOtpController: RequestHandler = async (req, res) => {

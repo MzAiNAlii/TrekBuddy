@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
 import vendorsSchema from "../../../../models/app/vendorSchema";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const roomDetailController: RequestHandler = async (req, res) => {
   const { roomId } = req.params;
   try {
-    const hotelDetails = await hotelSchemas.findById({ _id: roomId });
+    const hotelDetails = await hotelRoomSchemas.findById({ _id: roomId });
 
     const vendorInfo = await vendorsSchema
       .findById({ _id: hotelDetails!.vendorId })
@@ -19,7 +19,6 @@ const roomDetailController: RequestHandler = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: "Internal Server Error",
     });

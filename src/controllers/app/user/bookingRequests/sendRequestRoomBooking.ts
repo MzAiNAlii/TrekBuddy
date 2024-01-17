@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
 import vendorsSchema from "../../../../models/app/vendorSchema";
 import bookingRoomSchemas from "../../../../models/app/bookingRoom";
-import hotelSchemas from "../../../../models/app/hotelsRoom";
+import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 import usersSchema from "../../../../models/app/userSchema";
 
 const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
@@ -11,37 +11,12 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
   try {
     const userInfo = await usersSchema.findById({ _id: userId });
     const vendorInfo = await vendorsSchema.findById({ _id: vendorId });
-    const hotelRoomDetails: any = await hotelSchemas.findById({ _id: roomId });
-    // const room_already_booked = await bookingRoomSchemas.findOne({
-    //   roomId: roomId,
-    // });
-    // console.log(room_already_booked);
-
-    // if (room_already_booked) {
-    //   const currentDateAndTime = new Date();
-    //   if (
-    //     room_already_booked &&
-    //     currentDateAndTime < room_already_booked?.bookingEndDate!
-    //   ) {
-    //     return res.status(400).json({
-    //       message:
-    //         "Availability Pending From Hotel Manager For Send Request to Room Booking",
-    //     });
-    //   }
-    //   return res.status(409).json({
-    //     message: "Already Book ",
-    //     data: {
-    //       currentDateAndTime,
-    //       endDateAndTime: room_already_booked.bookingEndDate,
-    //     },
-    //   });
-    // }
+    const hotelRoomDetails: any = await hotelRoomSchemas.findById({ _id: roomId });
     const hotelName = hotelRoomDetails.hotels.map(
       (hotel_name: any) => hotel_name.name
     );
 
     const rooms = hotelRoomDetails.hotels[0].rooms;
-
     const roomArray: any = [];
 
     rooms.forEach((room: any) => {
@@ -80,7 +55,7 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
     // Send email
     await transporter.sendMail({
       from: userInfo!.email,
-      to: userInfo!.email,
+      to: vendorInfo!.email,
       subject: "Request for Room Booking Approval",
       html: `<!DOCTYPE html>
 <html lang="en">
@@ -137,7 +112,6 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
       data: addDetails,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({
       message: "Internal Server Error",
     });
