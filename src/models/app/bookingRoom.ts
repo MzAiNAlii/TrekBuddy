@@ -23,7 +23,7 @@ const bookingRoomSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "Vendors",
     },
-    hotelId: {
+    roomId: {
       type: mongoose.Types.ObjectId,
       ref: "hotelRooms",
     },

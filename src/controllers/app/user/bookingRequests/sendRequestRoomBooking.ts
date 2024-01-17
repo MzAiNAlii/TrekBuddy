@@ -1,17 +1,41 @@
 import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
-import vendorsSchema from "../../../models/app/vendorSchema";
-import bookingRoomSchemas from "../../../models/app/bookingRoom";
-import hotelSchemas from "../../../models/app/hotels";
-import usersSchema from "../../../models/app/userSchema";
+import vendorsSchema from "../../../../models/app/vendorSchema";
+import bookingRoomSchemas from "../../../../models/app/bookingRoom";
+import hotelSchemas from "../../../../models/app/hotelsRoom";
+import usersSchema from "../../../../models/app/userSchema";
 
 const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
-  const { userId, vendorId, hotelId } = req.params;
+  const { userId, vendorId, roomId } = req.params;
   const { bookingRoomDays, bookingStartDate, bookingEndDate } = req.body;
   try {
     const userInfo = await usersSchema.findById({ _id: userId });
     const vendorInfo = await vendorsSchema.findById({ _id: vendorId });
-    const hotelRoomDetails: any = await hotelSchemas.findById({ _id: hotelId });
+    const hotelRoomDetails: any = await hotelSchemas.findById({ _id: roomId });
+    // const room_already_booked = await bookingRoomSchemas.findOne({
+    //   roomId: roomId,
+    // });
+    // console.log(room_already_booked);
+
+    // if (room_already_booked) {
+    //   const currentDateAndTime = new Date();
+    //   if (
+    //     room_already_booked &&
+    //     currentDateAndTime < room_already_booked?.bookingEndDate!
+    //   ) {
+    //     return res.status(400).json({
+    //       message:
+    //         "Availability Pending From Hotel Manager For Send Request to Room Booking",
+    //     });
+    //   }
+    //   return res.status(409).json({
+    //     message: "Already Book ",
+    //     data: {
+    //       currentDateAndTime,
+    //       endDateAndTime: room_already_booked.bookingEndDate,
+    //     },
+    //   });
+    // }
     const hotelName = hotelRoomDetails.hotels.map(
       (hotel_name: any) => hotel_name.name
     );
@@ -35,6 +59,13 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
     );
     const No_of_beds = roomArray.map((No_of_bed: any) => No_of_bed.No_of_beds);
     const price = roomArray.map((room_price: any) => room_price.price);
+
+    hotelRoomDetails.hotels.forEach((hotel: any) => {
+      hotel.rooms.forEach((room: any) => {
+        room.availability = false; // Set availability to true
+      });
+    });
+    await hotelRoomDetails.save();
 
     const transporter = nodemailer.createTransport({
       service: process.env.EMAIL_HOST_SERVICE!,
@@ -92,7 +123,7 @@ const sendRequestRoomBookingController: RequestHandler = async (req, res) => {
         },
       ],
       vendorId,
-      hotelId,
+      roomId,
       rooms: roomArray,
       bookingRoomDays,
       bookingStartDate,

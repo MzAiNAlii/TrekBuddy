@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotels";
+import hotelSchemas from "../../../../models/app/hotelsRoom";
 
 const deleteBookingDetailsController: RequestHandler = async (req, res) => {
   const { id } = req.params;

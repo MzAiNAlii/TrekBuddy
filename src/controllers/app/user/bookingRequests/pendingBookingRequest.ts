@@ -1,21 +1,21 @@
 import { RequestHandler } from "express";
-import bookingRoomSchemas from "../../../models/app/bookingRoom";
+import bookingRoomSchemas from "../../../../models/app/bookingRoom";
 
-const activeBookingController: RequestHandler = async (req, res) => {
+const pendingBookingRequestController: RequestHandler = async (req, res) => {
   const { userId } = req.params;
   try {
     const checkPendingRequests = await bookingRoomSchemas.find({
       userId,
-      roomBookingStatus: true,
+      roomBookingStatus: false,
     });
 
     if (checkPendingRequests.length == 0) {
       return res.status(404).json({
-        messaage: "No Active Booking are here.",
+        messaage: "No Pending Booking Requests are here.",
       });
     }
     return res.status(200).json({
-      message: "Active Booking ",
+      message: "Pending Booking Requests",
       data: checkPendingRequests,
     });
   } catch (error) {
@@ -25,4 +25,4 @@ const activeBookingController: RequestHandler = async (req, res) => {
     });
   }
 };
-export default activeBookingController;
+export default pendingBookingRequestController;

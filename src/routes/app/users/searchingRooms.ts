@@ -1,16 +1,16 @@
 import { Router } from "express";
-import searchingRoomController from "../../../controllers/app/user/searchingRooms";
-import roomDetailController from "../../../controllers/app/user/RoomDetails";
-import sendRequestRoomBookingController from "../../../controllers/app/user/sendRequestRoomBooking";
-import pendingBookingRequestController from "../../../controllers/app/user/pendingBookingRequest";
-import activeBookingController from "../../../controllers/app/user/activeBooking";
+import searchingRoomController from "../../../controllers/app/user/bookingDetails/searchingRooms";
+import roomDetailController from "../../../controllers/app/user/bookingDetails/RoomDetails";
+import sendRequestRoomBookingController from "../../../controllers/app/user/bookingRequests/sendRequestRoomBooking";
+import pendingBookingRequestController from "../../../controllers/app/user/bookingRequests/pendingBookingRequest";
+import activeBookingController from "../../../controllers/app/user/bookingRequests/activeBooking";
 
 const bookRoomRouter = Router();
 
 bookRoomRouter.post("/searching-room", searchingRoomController);
-bookRoomRouter.get("/room-details/:hotelId", roomDetailController);
+bookRoomRouter.get("/room-details/:roomId", roomDetailController);
 bookRoomRouter.post(
-  "/sendRequest-roomBooking/:userId/:vendorId/:hotelId",
+  "/sendRequest-roomBooking/:userId/:vendorId/:roomId",
   sendRequestRoomBookingController
 );
 bookRoomRouter.get(

@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../models/app/hotels";
+import hotelSchemas from "../../../../models/app/hotelsRoom";
 
 const searchingRoomController: RequestHandler = async (req, res) => {
   const {

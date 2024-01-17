@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
-import vendorsSchema from "../../../models/app/vendorSchema";
-import hotelSchemas from "../../../models/app/hotels";
+import vendorsSchema from "../../../../models/app/vendorSchema";
+import hotelSchemas from "../../../../models/app/hotelsRoom";
 
 const roomDetailController: RequestHandler = async (req, res) => {
-  const { hotelId } = req.params;
+  const { roomId } = req.params;
   try {
-    const hotelDetails = await hotelSchemas.findById({ _id: hotelId });
+    const hotelDetails = await hotelSchemas.findById({ _id: roomId });
 
     const vendorInfo = await vendorsSchema
       .findById({ _id: hotelDetails!.vendorId })

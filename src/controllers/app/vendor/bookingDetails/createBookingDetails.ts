@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import hotelSchemas from "../../../../models/app/hotels";
+import hotelSchemas from "../../../../models/app/hotelsRoom";
 
 const createBookingDetailsController: RequestHandler = async (req, res) => {
   const { vendorId, location, address, hotelDetail } = req.body;
@@ -24,11 +24,10 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         })),
       });
     });
-    
+
     // console.log(hotelArray.map((hot: any)=>
     // hot.rooms.map((ro: any)=> ro.images)
     // ));
-    
 
     const isImagesSpaceFull = hotelArray.some((hotel: any) =>
       hotel.rooms.some((room: any) => room.images.length > 5)
