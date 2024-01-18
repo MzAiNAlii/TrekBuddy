@@ -10,8 +10,17 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
       hotelDetail: req.body.hotelDetail,
       location: req.body.location,
     };
+    const hotelName = data.hotelDetail[0].name;
+    const changeCharater = hotelName
+      .split(" ")
+      .map((n: any) => n.charAt(0).toUpperCase() + n.slice(1).toLowerCase())
+      .join(" ");
+
+    const room = data.hotelDetail[0].rooms;
+    const hotelRoomNumber = room[0].roomNumber;
+
     const hotelArray = data.hotelDetail.map((hotel: any) => ({
-      name: hotel.name,
+      name: changeCharater,
       classType: hotel.classType,
       description: hotel.description,
       rating: hotel.rating,
@@ -26,6 +35,17 @@ const updateBookingDetailsController: RequestHandler = async (req, res) => {
         })),
       })),
     }));
+
+    const existingHotelDetails = await hotelRoomSchemas.find({
+      "hotels.name": changeCharater,
+      "hotels.rooms.roomNumber": hotelRoomNumber,
+    });
+
+    if (existingHotelDetails.length == 1) {
+      return res.status(409).json({
+        message: `The room number:${hotelRoomNumber} is already exist against the hotel name:${changeCharater} `,
+      });
+    }
 
     const isImagesSpaceFull = hotelArray.some((hotel: any) =>
       hotel.rooms.some((room: any) => room.images.length > 5)
