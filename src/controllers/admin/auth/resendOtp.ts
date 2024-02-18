@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
-import otpSchema from "../../../../models/app/otpSchema";
-import { otpRouter } from "../../../../util/otp/otp";
+import otpSchema from "../../../models/app/otpSchema";
+import { otpRouter } from "../../../util/otp/otp";
 
 const resendOtpController: RequestHandler = async (req, res) => {
   const { userId } = req.body;
@@ -32,7 +32,7 @@ const resendOtpController: RequestHandler = async (req, res) => {
       $set: {
         otp: isOtp.userotp,
         expire: isOtp.expirationTime,
-        isVerify: false
+        isVerify: false,
       },
     });
     const updatedData = await otpSchema.findOne(existingUserOtp!._id);

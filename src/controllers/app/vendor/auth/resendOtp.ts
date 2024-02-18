@@ -32,6 +32,7 @@ const resendOtpController: RequestHandler = async (req, res) => {
       $set: {
         otp: isOtp.userotp,
         expire: isOtp.expirationTime,
+        isVerify: false
       },
     });
     const updatedData = await otpSchema.findOne(existingVendorOtp!._id);

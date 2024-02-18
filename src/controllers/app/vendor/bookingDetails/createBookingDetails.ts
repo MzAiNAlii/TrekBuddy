@@ -3,6 +3,8 @@ import hotelRoomSchemas from "../../../../models/app/hotelsRoom";
 
 const createBookingDetailsController: RequestHandler = async (req, res) => {
   const { vendorId, location, address, hotelDetail } = req.body;
+  console.log(req.body);
+
   try {
     const hotelName = hotelDetail[0].name;
     const changeCharater = hotelName
@@ -12,7 +14,7 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
 
     const room = hotelDetail[0].rooms;
     const hotelRoomNumber = room[0].roomNumber;
-    
+
     const hotelArray: any = [];
     hotelDetail.forEach((hotel: any) => {
       hotelArray.push({
@@ -31,12 +33,19 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
         })),
       });
     });
+    // const existingHotelRoomId = await hotelRoomSchemas.find({
+    //   vendorId: vendorId,
+    // });
+    //console.log(existingHotelRoomId);
 
     const existingHotelDetails = await hotelRoomSchemas.find({
+      //"vendorId": vendorId,
       "hotels.name": changeCharater,
       "hotels.rooms.roomNumber": hotelRoomNumber,
     });
+    //console.log(existingHotelDetails);
 
+    //if (existingHotelRoomId) {
     if (existingHotelDetails.length == 1) {
       return res.status(409).json({
         message: `The room number:${hotelRoomNumber} is already exist against the hotel name:${changeCharater} `,
@@ -60,7 +69,10 @@ const createBookingDetailsController: RequestHandler = async (req, res) => {
       message: "Booking For Room Post Created Successfully",
       data: createBookingDetails,
     });
+    //}
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({
       message: "Internal Server Error",
     });

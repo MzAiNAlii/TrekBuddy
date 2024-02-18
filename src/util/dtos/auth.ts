@@ -7,11 +7,10 @@ export const UserSignupDto = Joi.object({
   password: Joi.string().min(8).required(),
   DateOfBirth: Joi.string().optional(),
   Gender: Joi.string().valid("Male", "Female", "other"),
-  //countryCode: Joi.string().valid('PK').required(),
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{7,15}$/)
     .required(),
-  //role: Joi.string(),
+  
 });
 
 export const ResetPasswordDto = Joi.object({
@@ -30,7 +29,6 @@ export const SendOtpDto = Joi.object({
 });
 
 export const LoginDto = Joi.object({
-  // userName: Joi.string().max(50).trim(),
   email: Joi.string().max(50).required(),
   password: Joi.string().min(8).required(),
 });
@@ -43,11 +41,10 @@ export const VendorSignupDto = Joi.object({
   DateOfBirth: Joi.date().optional(),
   companyName: Joi.string().required(),
   Gender: Joi.string().valid("Male", "Female", "other"),
-  //countryCode: Joi.string().valid('PK').required(),
+  
   phoneNumber: Joi.string()
     .pattern(/^[0-9]{7,15}$/)
     .required(),
-  //role: Joi.string(),
 });
 
 export const UpdateInfoDto = Joi.object({

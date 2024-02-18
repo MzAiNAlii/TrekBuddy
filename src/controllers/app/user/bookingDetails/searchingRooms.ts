@@ -10,6 +10,7 @@ const searchingRoomController: RequestHandler = async (req, res) => {
     minPrice,
     maxPrice,
   } = req.body;
+
   try {
     const classTypeExists = await hotelRoomSchemas.exists({
       location,

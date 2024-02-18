@@ -9,6 +9,7 @@ import bookingDetailsRouter from "./routes/app/vendor/booking/BookingDetails";
 import bookRoomRouter from "./routes/app/users/searchingRooms";
 import bookingRequestRouter from "./routes/app/vendor/booking/bookingRequests";
 import hotelsRoomsRouter from "./routes/app/hotelsRooms";
+import inviteTeamMemberRouter from "./routes/admin/inviteTeamMember";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/", adminRouter);
+app.use("/",inviteTeamMemberRouter)
 
 app.use("/vendor", vendorRouter);
 app.use("/vendor", vendorProfileRouter);
