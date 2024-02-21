@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Modal from "react-modal";
 import "./Style.css";
 
 const Members = () => {
   const [loadingStates, setLoadingStates] = useState(false);
-  const [editMember, setEditMember] = useState()
+  const [editMember, setEditMember] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(false);
+  const [userData, setUserData] = useState({
+    email: "",
+    userType: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,8 +29,6 @@ const Members = () => {
     };
 
     fetchData();
-    return () => {
-    };
   }, []);
 
   const handleDelete = async () => {
@@ -39,20 +42,36 @@ const Members = () => {
     } finally {
       setLoadingStates(false);
     }
-  }
+  };
+
+const EditModal = async () =>{
+  setLoadingStates(true);
+    try {
+      const res = await axios.delete("http://localhost:4000/update-teamMemberInfo/");
+      toast.success(res.message);
+      setData(res.data);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoadingStates(false);
+    }
+}
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setUserData({ ...userData, [name]: value });
+};
 
   const handleEdit = (member) => {
     setEditMember(member);
     setShowModal(true);
-    console.log("Edit member clicked:", member);
   };
-  
+
   const closeModal = () => {
     setEditMember(null);
     setShowModal(false);
-    console.log("Modal closed");
   };
-  
+
   return (
     <div className="table-responsive-md">
       {loadingStates ? (
@@ -112,31 +131,58 @@ const Members = () => {
           )}
         </>
       )}
+      <Modal
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        contentLabel="Edit Member Modal"
+      >
+        <div>
+        <button type="button" class="btn-close text-end" aria-label="Close"  onClick={closeModal}></button>
+          <h5>Edit Member</h5>
+          {editMember && (
+             <form  >
 
-      {showModal ?  (
-        <div className="modal" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Edit Member</h5>
-                <button type="button" className="btn-close" onClick={closeModal} aria-label="Close"></button>
-              </div>
-              {editMember && (
-                <div className="modal-body">
-                  <p>Name: {editMember.name}</p>
-                  <p>Email: {editMember.email}</p>
-                  <p>User Type: {editMember.userType}</p>
-                </div>
-              )}
-              <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={closeModal}>
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
+             <div >
+                 <input
+                   name="email"
+                   className="form-control mb-3 "
+                   placeholder="Email"
+                   required
+                   value={editMember.name}
+                   onChange={handleInputChange}
+                 />
+               </div>
+     
+               <div >
+                 <input
+                   name="confirmPassword"
+                   className="form-control mb-3"
+                   placeholder="confirmPassword"
+                   required
+                   autoComplete="Confirmpassword"
+                   value={editMember.userType}
+                   onChange={handleInputChange}
+                 />
+               </div>
+     
+               <div className="form-group">
+                 <button type="submit" className="button btn" onClick={EditModal}>
+                 {loadingStates ? (
+                      <div class="spinner-border text-light" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                     ) : (
+                       ""
+                     )}
+                     Update
+                 </button>
+               </div>
+             </form>
+           
+          )}
+  
         </div>
-      ) : console.log("null")}
+      </Modal>
     </div>
   );
 };
