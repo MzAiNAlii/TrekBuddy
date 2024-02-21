@@ -1,0 +1,94 @@
+/* Dashboard */
+.sidebar {
+  width: 18vw;
+  height: 100vh;
+  padding: 3vw 2vw;
+  float: left; 
+  position: fixed;
+  background-color: #d7eaa8;
+}
+
+.logo{
+  margin-bottom: 20%;
+  text-align:left;
+  margin-left: 5%;
+  font-family: 'Seaweed Script', cursive;
+  font-size: 2vw;
+  font-weight: 600;
+  color: black;
+}
+
+.nav-pills .nav-item.active {
+  background-color:white;
+  color: black;
+  border-radius: 25px;
+}
+
+.nav-link , .nav-link:hover{
+  color: black;
+}
+
+
+.Margin{
+  margin-top: 15vw;
+}
+
+.content-container {
+  margin-top: 10%;
+  min-height: 100vh;
+  overflow: hidden;
+  margin-left: 23vw;
+  width: 100%;
+  margin-right: 5vw;
+}
+
+.Icon{
+  padding-right: 15px;
+  color: #556b2f;
+}
+
+
+/* Setting*/
+
+.Form_Container{
+  padding: 5%;
+  width: 50%;
+  margin: 1% 25%;
+  box-shadow: 0px 4px 8px #556b2f;
+  background-color: #d7eaa8;
+  border-radius: 15px;
+}
+
+.Title {
+  text-align: center;
+  font-family: 'Seaweed Script', cursive;
+  font-size: 3vw;
+  font-weight: 600;
+  color: black;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon i {
+  cursor: pointer;
+  position: absolute;
+  right: 25px; 
+  top: 30%;
+  transform: translateY(10%);
+}
+
+
+/* Members*/
+.Posts_table {
+  color: #556b2f;
+  background-color: #d7eaa8;
+}
+
+.Action_btn{
+  border: none;
+  background-color: transparent;
+}
+
+

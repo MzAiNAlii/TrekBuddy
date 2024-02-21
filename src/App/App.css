@@ -1,0 +1,20 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Seaweed+Script&display=swap');
+
+.button {
+   border-radius: 25px ;
+   background-color: #556b2f;
+   color: #d7eaa8;
+   padding: 2% 10%;
+
+}
+
+.button:hover{
+    border-radius: 25px ;
+    background-color: #556b2f;
+    color: #d7eaa8;
+    padding: 2% 10%;
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 4px 8px  #556b2f;
+    top: -2vw;
+ }

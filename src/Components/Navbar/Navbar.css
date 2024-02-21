@@ -1,0 +1,32 @@
+.Nav{
+    position: fixed;
+    width: 100%;
+    margin: 0% 5%;
+    padding: 1.3vw 5vw;
+    background-color: white;
+    text-align: right;
+}
+
+.dropdown{
+    background-color: #d7eaa8;
+    padding: 1.5%;
+    border-radius: 50px;
+    margin: 0% 5% 0% 13%;
+}
+
+.dropdown button{
+    background-color: white;
+    margin-left: 70%;
+    border-radius: 25px;
+}
+
+.dropdown button:hover{
+    background-color: white;
+    margin-left: 70%;
+    border-radius: 25px;
+}
+
+
+
+
+

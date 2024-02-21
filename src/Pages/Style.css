@@ -1,0 +1,128 @@
+
+.Login_Container{
+    margin: 5% 35%;
+    padding: 5%;
+    box-shadow: 0px 4px 8px #556b2f;
+    background-color: #d7eaa8;
+    border-radius: 15px;
+  }
+  
+  .Title {
+    text-align: center;
+    font-family: 'Seaweed Script', cursive;
+    font-size: 3vw;
+    font-weight: 600;
+    color: #556b2f;
+  }
+  
+  .login-btn{
+    background-color: #556b2f;
+    border-radius: 15px;
+    padding: 0.7vw 2vw;
+    color: #d7eaa8;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .login-btn:hover {
+    background-color: #d7eaa8;
+    color: #556b2f;
+    box-shadow: 2px 2px 7px #556b2f, -2px -2px 7px #556b2f;
+    font-weight: 600;
+  }
+  
+  .input-with-icon {
+    position: relative;
+  }
+  
+  .input-with-icon i {
+    cursor: pointer;
+    position: absolute;
+    right: 25px; 
+    top: 50%;
+    transform: translateY(10%);
+  }
+  
+  .Forget_password {
+    text-align: right;
+    margin-bottom: 5%;
+    background-color: #d7eaa8;
+    font-weight: 700;
+    color: #556b2f;
+    border: none;
+    cursor: pointer;
+  }
+  .Account_container {
+    border-radius: 25px;
+    margin: 7% 20%;
+    padding: 3% 5% 5% 5%;
+    box-shadow: 2px 2px 6px #d7eaa8, -2px -2px 20px #556b2f;
+    background-color: #d7eaa8;
+  }
+  
+  .Account_container h3 {
+    font-family: 'Seaweed Script', cursive;
+    color:  #556b2f;
+    font-size: 2vw;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 7%;
+  }
+  .Account_container h4{
+    font-size: 2vw;
+    text-align: center;
+  }
+  
+  .Account_container p{
+    text-align: center;
+  }
+  
+  .signup-icon{
+    margin-right: 10px;
+  }
+  .btn-color {
+    color: #d7eaa8;
+    font-weight: 500;
+    background-color: #556b2f;
+    border-radius: 15px;
+    padding: 0.7vw;
+  }
+  
+  .btn-color:hover {
+    color: white;
+    top: -5vw;
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 4px 8px rgba(12, 12, 12, 0.2);
+    font-weight: 500;
+    background-color: #556b2f;
+    border: solid #d7eaa8 2px;
+  }
+  
+  .Flex {
+    display: flex;
+    gap: 5vw;
+    justify-content: center;
+    margin: 5%;
+  }
+  
+  @media screen and (max-width: 500px){
+    .Login_Container{
+      margin: 10% 25%;
+      padding: 5%;
+      box-shadow: 0px 4px 8px #556b2f;
+      background-color: #d7eaa8;
+      border-radius: 10px;
+      font-size: 3vw;
+    }
+  
+    .Forget_password {
+      text-align: right;
+      margin-bottom: 5%;
+      background-color: #d7eaa8;
+      font-weight: 400;
+      color: #556b2f;
+      border: none;
+      cursor: pointer;
+    }
+  }
