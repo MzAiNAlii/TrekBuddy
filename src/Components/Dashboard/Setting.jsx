@@ -18,25 +18,32 @@ const SetPassword = () => {
     setAccountData({ ...AccountData, [name]: value });
   }
 
-  const token = localStorage.getItem("Token")
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingStates(true);
+    const token = localStorage.getItem("token");
+  
     try {
-      const res = await axios.post("http://localhost:4000/setPassword", AccountData , token);
-      toast.success(res.message)
+      const res = await axios.post("http://localhost:4000/setPassword", {
+        email: AccountData.email,
+        newPassword: AccountData.newPassword,
+        confirmPassword: AccountData.confirmPassword,
+        token: token,
+      });
+  
+      toast.success(res.message);
       setAccountData({
         email: "",
-        confirmPassword : "",
-        password: "",
+        confirmPassword: "",
+        newPassword: "",
       });
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     } finally {
       setLoadingStates(false);
     }
   };
+  
   
 
   const togglePasswordVisibility = () => {

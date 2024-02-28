@@ -14,7 +14,8 @@ const SendOTP = () => {
     setLoadingStates(true);
     try {
       const res = await axios.post('http://localhost:4000/send-otp' , {email});
-      toast.success(res.message);
+      toast.success(res.data.message);
+      localStorage.setItem('id', res.data.userId)
       localStorage.setItem('Email', email);
       setIsSuccess(true);
     } catch (error) {

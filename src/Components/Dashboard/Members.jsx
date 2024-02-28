@@ -6,13 +6,14 @@ import "./Style.css";
 
 const Members = () => {
   const [loadingStates, setLoadingStates] = useState(false);
-  const [editMember, setEditMember] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(false);
-  const [userData, setUserData] = useState({
-    email: "",
+  const [editMember, setEditMember] = useState({
+    name: "",
     userType: "",
   });
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,26 +45,32 @@ const Members = () => {
     }
   };
 
-const EditModal = async () =>{
-  setLoadingStates(true);
+  const EditModal = async () => {
+    setLoadingStates(true);
     try {
-      const res = await axios.delete("http://localhost:4000/update-teamMemberInfo/");
+      const { id, name, userType } = editMember;
+      const payload = { name, userType };
+      const res = await axios.put(`http://localhost:4000/update-teamMemberInfo/${id}`, payload);
       toast.success(res.message);
       setData(res.data);
     } catch (error) {
       toast.error(error.message);
+      console.log("message", error.message);
     } finally {
       setLoadingStates(false);
+      closeModal();
     }
-}
+  };
+  
+  
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setUserData({ ...userData, [name]: value });
-};
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditMember({ ...editMember, [name]: value });
+  };
 
   const handleEdit = (member) => {
-    setEditMember(member);
+    setEditMember({ ...member, id: member._id });
     setShowModal(true);
   };
 
@@ -137,50 +144,49 @@ const handleInputChange = (e) => {
         contentLabel="Edit Member Modal"
       >
         <div>
-        <button type="button" class="btn-close text-end" aria-label="Close"  onClick={closeModal}></button>
+          <button type="button" class="btn-close text-end" aria-label="Close" onClick={closeModal}></button>
           <h5>Edit Member</h5>
           {editMember && (
-             <form  >
+            <form onSubmit={EditModal}>
 
-             <div >
-                 <input
-                   name="email"
-                   className="form-control mb-3 "
-                   placeholder="Email"
-                   required
-                   value={editMember.name}
-                   onChange={handleInputChange}
-                 />
-               </div>
-     
-               <div >
-                 <input
-                   name="confirmPassword"
-                   className="form-control mb-3"
-                   placeholder="confirmPassword"
-                   required
-                   autoComplete="Confirmpassword"
-                   value={editMember.userType}
-                   onChange={handleInputChange}
-                 />
-               </div>
-     
-               <div className="form-group">
-                 <button type="submit" className="button btn" onClick={EditModal}>
-                 {loadingStates ? (
-                      <div class="spinner-border text-light" role="status">
+              <div >
+                <input
+                  name="name"
+                  className="form-control mb-3 "
+                  placeholder="Name"
+                  required
+                  value={editMember.name}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div >
+                <input
+                  name="userType"
+                  className="form-control mb-3 "
+                  placeholder="user Type"
+                  required
+                  value={editMember.userType}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <button type="submit" className="button btn">
+                  {loadingStates ? (
+                    <div class="spinner-border text-light" role="status">
                       <span class="visually-hidden">Loading...</span>
                     </div>
-                     ) : (
-                       ""
-                     )}
-                     Update
-                 </button>
-               </div>
-             </form>
-           
+                  ) : (
+                    ""
+                  )}
+                  Update
+                </button>
+              </div>
+            </form>
+
           )}
-  
+
         </div>
       </Modal>
     </div>

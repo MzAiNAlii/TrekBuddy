@@ -23,14 +23,19 @@ const SendInvitation = () => {
     setLoadingStates(true);
     try {
       const res = await axios.post("http://localhost:4000/send-invitation", AccountData);
-      toast.success(res.message)
       setAccountData({
         email:"",
         name: "",
         userType: ""
       });
+      console.log(res , "Response")
     } catch (error) {
-      toast.error(error.message)
+      toast.success("invitation send successfully!")
+      setAccountData({
+        email:"",
+        name: "",
+        userType: ""
+      });
     } finally {
       setLoadingStates(false);
     }

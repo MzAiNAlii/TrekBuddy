@@ -1,11 +1,12 @@
-import React, { useState} from "react";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import ".././Style.css"
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import '.././Style.css';
 
 const ResetPassword = () => {
 
- const [passwordSuccess , setPasswordSuccess] = useState(false)
+  const [passwordSuccess, setPasswordSuccess] = useState(false)
   const [loadingStates, setLoadingStates] = useState(false);
   const [showPassword, setShowPassword] = useState(true);
   const [AccountData, setAccountData] = useState({
@@ -19,14 +20,29 @@ const ResetPassword = () => {
   }
 
   const handleSubmit = async (e) => {
-    const userId = localStorage.getItem("userId");
     e.preventDefault();
     setLoadingStates(true);
+    const userId = localStorage.getItem("id");
+    
+    try {
+      const res = await axios.post('http://localhost:4000/resetPassword', {
+        newPassword: AccountData.newPassword,
+        confirmPassword: AccountData.confirmPassword,
+        userId: userId,
+      });
+  
+      toast.success(res.data.message);
+      setPasswordSuccess(true);
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setLoadingStates(false);
+    }
   };
   
 
-  if(passwordSuccess){
-    return <Navigate replace to="/userlogin" />;
+  if (passwordSuccess) {
+    return <Navigate replace to="/" />;
   }
 
   const togglePasswordVisibility = () => {
@@ -34,12 +50,12 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className='OTPCard'>
+    <div style={{ backgroundColor: '#d7eaa8', margin: '10% 30%', padding: '5%' }} className="card">
       <h2>Set a New Password</h2>
       <div className="fxt-form">
         <form onSubmit={handleSubmit}  >
 
-          <div className="eye-icon">
+          <div className="input-with-icon">
             <input
               name="newPassword"
               type={showPassword ? "text" : "password"}
@@ -56,7 +72,7 @@ const ResetPassword = () => {
             ></i>
           </div>
 
-          <div className="eye-icon">
+          <div className="input-with-icon">
             <input
               name="confirmPassword"
               type={showPassword ? "text" : "password"}
@@ -75,15 +91,15 @@ const ResetPassword = () => {
           </div>
 
           <div className="form-group">
-            <button type="submit" className="OTPbtn btn" >
-            {loadingStates ? (
-                 <div class="spinner-border text-light" role="status">
-                 <span class="visually-hidden">Loading...</span>
-               </div>
-                ) : (
-                  ""
-                )}
-                Update
+            <button type="submit" className="button btn" >
+              {loadingStates ? (
+                <div class="spinner-border text-light" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                ""
+              )}
+              Update
             </button>
           </div>
         </form>

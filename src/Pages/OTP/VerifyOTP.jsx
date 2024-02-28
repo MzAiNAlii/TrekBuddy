@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
-import { Navigate , Link} from "react-router-dom";
-import axios from 'axios'; 
+import React, { useState } from 'react';
+import { Navigate, Link } from "react-router-dom";
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import ".././Style.css"
 
@@ -13,12 +13,13 @@ const VerifyOTP = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoadingStates(true);
+    const userId = localStorage.getItem("id");
     try {
-      const res = await axios.post('http://localhost:4000//verify-otp' , {otp});
-      toast.success(res.message);
+      const res = await axios.post('http://localhost:4000/verify-otp', { otp, userId });
+      toast.success(res.data.message);
       setIsVerified(true);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.data.message);
     } finally {
       setLoadingStates(false);
     }
@@ -35,7 +36,7 @@ const VerifyOTP = () => {
     setLoadingStates(true);
     try {
       const Email = localStorage.getItem('Email')
-      const res = await axios.post('http://localhost:4000/resend-otp' , {Email});
+      const res = await axios.post('http://localhost:4000/resend-otp', { Email });
       toast.success(res.message);
     } catch (error) {
       toast.error(error.message);
@@ -46,30 +47,30 @@ const VerifyOTP = () => {
 
   return (
     <div style={{ backgroundColor: '#d7eaa8', margin: '10% 30%', padding: '5%' }} className="card">
-            <h2 className=' mb-3'>Enter the 6-digit code</h2>
+      <h2 className=' mb-3'>Enter the 6-digit code</h2>
       <span >Check  for a verification code </span>
-        <div >
-          <input
-            type="text"
-            className="mt-3 form-control"
-            id="confirmOTP"
-            placeholder='Enter Verification Code Here'
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-          />
-        </div>
-        <div style={{ display: 'flex', justifyContent : "space-between" }}>
-          <button type="button" className="button btn mt-3" onClick={handleResend}>
-            {loadingStates ? (
-              <div class="spinner-border loader" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            ) : (
-              ""
-            )}
-            Resend Code
-          </button>
-  
+      <div >
+        <input
+          type="text"
+          className="mt-3 form-control"
+          id="confirmOTP"
+          placeholder='Enter Verification Code Here'
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+        />
+      </div>
+      <div style={{ display: 'flex', justifyContent: "space-between" }}>
+        <button type="button" className="button btn mt-3" onClick={handleResend}>
+          {loadingStates ? (
+            <div class="spinner-border loader" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          ) : (
+            ""
+          )}
+          Resend Code
+        </button>
+
         <Link to="/sendOTP">
           <div>
             <button type="button" className="button btn mt-3">
